@@ -3,7 +3,7 @@ import Lax16.TeachingMaps
 
 /-!
 ---
-title: Two-label assignments on two-connected outerplanar graphs
+title: Two-connected outerplanar graphs admit two-label teaching maps
 type: theorem
 ---
 Every finite two-connected outerplanar graph admits a positive radius-one

@@ -4,13 +4,13 @@ import Lax16.TeachingMaps
 
 /-!
 ---
-title: Sharpness of the outerplanar bound
+title: Some outerplanar graph has positive NCTD at least two
 type: theorem
 ---
 Let `H` be the six-vertex graph formed from two triangles
 `0-1-2-0` and `3-4-5-3` together with the edges `0-3` and `1-4`.
-This graph is outerplanar, and both its ordinary and positive radius-one
-no-clash teaching dimensions are exactly two.
+This graph is outerplanar and witnesses that the positive radius-one
+no-clash teaching dimension of outerplanar graphs cannot be below two.
 -/
 
 namespace Lax16.OuterplanarSharpness
@@ -29,10 +29,9 @@ def sharpOuterplanarGraph : SimpleGraph (Fin 6) :=
   SimpleGraph.edge 0 3 ⊔
   SimpleGraph.edge 1 4
 
-/-- The six-vertex example is outerplanar and has both dimensions exactly two. -/
-axiom outerplanar_bound_is_sharp :
+/-- The six-vertex example is outerplanar and has positive NCTD at least two. -/
+axiom positiveNCTD_ge_two :
     IsOuterplanar sharpOuterplanarGraph ∧
-    nctd sharpOuterplanarGraph 1 = 2 ∧
-    positiveNCTD sharpOuterplanarGraph 1 = 2
+      2 ≤ positiveNCTD sharpOuterplanarGraph 1
 
 end Lax16.OuterplanarSharpness

@@ -4,13 +4,13 @@ import Lax16.TeachingMaps
 
 /-!
 ---
-title: Sharpness of the planar bound
+title: Some planar graph has positive NCTD at least four
 type: theorem
 ---
 Let `W` be the five-vertex wheel whose center is `0` and whose rim is the
 four-cycle `1-2-3-4-1`.  The graph is planar and its positive radius-one
-no-clash teaching dimension is exactly four: the center must use all four rim
-vertices to distinguish itself from the four dominated rim concepts.
+no-clash teaching dimension is at least four: the center must use all four
+rim vertices to distinguish itself from the four dominated rim concepts.
 -/
 
 namespace Lax16.PlanarSharpness
@@ -29,9 +29,9 @@ def sharpPlanarGraph : SimpleGraph (Fin 5) :=
   SimpleGraph.edge 3 4 ⊔
   SimpleGraph.edge 4 1
 
-/-- The five-vertex wheel is planar and attains positive NCTD four. -/
-axiom planar_bound_is_sharp :
+/-- The five-vertex wheel is planar and has positive NCTD at least four. -/
+axiom positiveNCTD_ge_four :
     IsPlanar sharpPlanarGraph ∧
-    positiveNCTD sharpPlanarGraph 1 = 4
+      4 ≤ positiveNCTD sharpPlanarGraph 1
 
 end Lax16.PlanarSharpness

@@ -100,4 +100,10 @@ def Dominates {V : Type u} (G : SimpleGraph V) (k : ℕ)
     (v w : V) : Prop :=
   closedBall G k v ⊆ closedBall G k w
 
+/-- Replace the teaching set at `target` by the set at `source`. -/
+noncomputable def copyTeachingSet {V : Type u} {k : ℕ} (T : TeachingMap V k)
+    (source target : V) : TeachingMap V k := by
+  classical
+  exact fun v => if v = target then T source else T v
+
 end Lax16.TeachingMaps

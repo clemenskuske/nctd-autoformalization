@@ -1,15 +1,14 @@
 import Lax16.PlanarVertexBatch
-import Lax16.CenterSet
-import Lax16.DominatorCompletion
-import Lax16.OutsideThreeSetGadget
 import Lax16.OuterplanarLayer
-import Lax16.PlanarToolbox
+import Lax16Proofs.CenterSet
+import Lax16Proofs.DominatorCompletion
+import Lax16Proofs.OutsideThreeSetGadget
+import Lax16Proofs.PlanarToolbox
 
 namespace Lax16Proofs.PlanarVertexBatch
 
 open Lax16.BatchFramework
 open Lax16.DominatorDefinitions
-open Lax16.OutsideThreeSetGadget
 open Lax16.OuterplanarLayer
 open Lax16.PlanarGraphs
 open Lax16.TeachingMaps
@@ -18,20 +17,17 @@ universe u
 
 /--
 ---
-conclusion: Lax16.PlanarVertexBatch.exists_planar_vertex_batch
+conclusion: Lax16.PlanarVertexBatch.exists_planar_vertex_batch_of_degree_ge_four
 assumptions:
-  - Lax16.CenterSet.exists_center_set
-  - Lax16.DominatorCompletion.exists_dominator_completion
-  - Lax16.OutsideThreeSetGadget.outside_three_set_gadget
   - Lax16.OuterplanarLayer.exists_outerplanar_layer_assignment
-  - Lax16.PlanarToolbox.neighbor_layer_outerplanar
 ---
 Use the four-label center set, the completed active-dominator assignments,
 and the anchored outerplanar-layer assignments on the remaining neighbors.
 The unique possible outside vertex seeing the center set is added to the
 batch and receives the outside-gadget assignment.
 -/
-theorem exists_planar_vertex_batch {V : Type u} [Fintype V] [DecidableEq V]
+theorem exists_planar_vertex_batch_of_degree_ge_four {V : Type u}
+    [Fintype V] [DecidableEq V]
     (G : SimpleGraph V) (hplanar : IsPlanar G)
     (v : V) (hdegree : 4 ≤ (G.neighborSet v).ncard) :
     ∃ B : BatchAssignment G,
@@ -76,7 +72,7 @@ theorem exists_planar_vertex_batch {V : Type u} [Fintype V] [DecidableEq V]
     rw [mem_ball_one_iff, mem_X_iff]
 
   obtain ⟨W, hWcard, hWneighbors, hWseparates⟩ :=
-    Lax16.CenterSet.exists_center_set G hplanar v hdegree
+    Lax16Proofs.CenterSet.exists_center_set G hplanar v hdegree
 
   obtain ⟨Y, hYW, hYcard⟩ :
       ∃ Y : Finset V, Y ⊆ W ∧ Y.card = 3 := by
@@ -89,7 +85,7 @@ theorem exists_planar_vertex_batch {V : Type u} [Fintype V] [DecidableEq V]
     exact hWneighbors y (hYW hy)
 
   obtain ⟨hYunique, hYgadget⟩ :=
-    Lax16.OutsideThreeSetGadget.outside_three_set_gadget
+    Lax16Proofs.OutsideThreeSetGadget.outside_three_set_gadget
       G hplanar v Y hYcard hYneighbors
 
   let O : Finset V :=
@@ -112,7 +108,7 @@ theorem exists_planar_vertex_batch {V : Type u} [Fintype V] [DecidableEq V]
       (outside_Y_of_mem_O (x := z) hz)
 
   obtain ⟨D, hD⟩ :=
-    Lax16.DominatorCompletion.exists_dominator_completion
+    Lax16Proofs.DominatorCompletion.exists_dominator_completion
       G hplanar v hdegree
 
   have hXneighbors : ∀ w ∈ X, G.Adj v w := by
@@ -125,7 +121,7 @@ theorem exists_planar_vertex_batch {V : Type u} [Fintype V] [DecidableEq V]
       ext w
       simp [X]
     rw [hXset]
-    exact Lax16.PlanarToolbox.neighbor_layer_outerplanar hplanar v
+    exact Lax16Proofs.PlanarToolbox.neighbor_layer_outerplanar hplanar v
 
   obtain ⟨S, hSlayer, hSanchored, hSexternal⟩ :=
     Lax16.OuterplanarLayer.exists_outerplanar_layer_assignment

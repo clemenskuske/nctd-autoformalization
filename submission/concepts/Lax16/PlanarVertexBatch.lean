@@ -4,7 +4,7 @@ import Lax16.PlanarGraphs
 
 /-!
 ---
-title: An admissible batch around a high-degree planar vertex
+title: Every planar vertex with at least four neighbors admits a width-four batch
 type: theorem
 ---
 Let `v` be a vertex of degree at least four in a finite planar graph.  There
@@ -21,7 +21,8 @@ open Lax16.TeachingMaps
 universe u
 
 /-- Every high-degree planar center has the required width-four batch. -/
-axiom exists_planar_vertex_batch {V : Type u} [Fintype V] [DecidableEq V]
+axiom exists_planar_vertex_batch_of_degree_ge_four {V : Type u}
+    [Fintype V] [DecidableEq V]
     (G : SimpleGraph V) (hplanar : IsPlanar G)
     (v : V) (hdegree : 4 ≤ (G.neighborSet v).ncard) :
     ∃ B : BatchAssignment G,

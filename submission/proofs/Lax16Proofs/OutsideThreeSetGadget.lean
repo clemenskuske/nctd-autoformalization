@@ -1,8 +1,9 @@
-import Lax16.OutsideThreeSetGadget
+import Lax16.DominatorDefinitions
+import Lax16.PlanarGraphs
 
 namespace Lax16Proofs.OutsideThreeSetGadget
 
-open Lax16.OutsideThreeSetGadget
+open Lax16.DominatorDefinitions
 open Lax16.PlanarGraphs
 open Lax16.TeachingMaps
 
@@ -31,9 +32,6 @@ def directTopologicalModel {W : Type u} {V : Type v}
     exact disjoint_bot_left
 
 /--
----
-conclusion: Lax16.OutsideThreeSetGadget.outside_three_set_gadget
----
 Two distinct outside vertices seeing all three selected neighbors, together
 with the center and those neighbors, form a direct `K₃,₃`.  Uniqueness then
 turns failure of an external certificate into the contradiction that the

@@ -1,5 +1,6 @@
-import Lax16.ComponentReduction
+import Mathlib.Combinatorics.SimpleGraph.Connectivity.Connected
 import Mathlib.Combinatorics.SimpleGraph.Walk.Maps
+import Lax16.TeachingMaps
 
 namespace Lax16Proofs.ComponentReduction
 
@@ -8,9 +9,6 @@ open Lax16.TeachingMaps
 universe u
 
 /--
----
-conclusion: Lax16.ComponentReduction.combine_components
----
 Choose a teaching map on each component and map all of its labels into the
 ambient vertex type.  Labels and radius-one balls transport across the
 component inclusion.  Vertices in different components are separated by any

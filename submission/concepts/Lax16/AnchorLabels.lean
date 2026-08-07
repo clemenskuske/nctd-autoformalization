@@ -2,7 +2,7 @@ import Lax16.TeachingMaps
 
 /-!
 ---
-title: Certification by an anchor label
+title: An anchor label certifies against every concept that omits it
 type: theorem
 ---
 If a radius-one teaching set contains an anchor label `v`, it certifies its

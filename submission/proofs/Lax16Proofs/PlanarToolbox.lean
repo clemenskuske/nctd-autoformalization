@@ -1,4 +1,4 @@
-import Lax16.PlanarToolbox
+import Lax16.PlanarGraphs
 
 namespace Lax16Proofs.PlanarToolbox
 
@@ -389,9 +389,6 @@ def sumOptionEquiv {A : Type u} {B : Type v} :
   right_inv := by rintro (_ | (a | b)) <;> rfl
 
 /--
----
-conclusion: Lax16.PlanarToolbox.neighbor_layer_outerplanar
----
 Cone a forbidden subdivision in the neighbor layer from the center.  A
 topological `K₄` becomes a topological `K₅`; a topological `K₂,₃` becomes a
 topological `K₃,₃`.  Lifted old routes retain their disjoint interiors, and

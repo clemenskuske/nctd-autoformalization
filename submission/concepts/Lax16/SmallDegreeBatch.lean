@@ -1,10 +1,11 @@
 import Mathlib.Combinatorics.SimpleGraph.Finite
 import Mathlib.Data.Set.Card
 import Lax16.BatchFramework
+import Lax16.AnchorLabels
 
 /-!
 ---
-title: An admissible batch around a vertex of degree at most three
+title: Every vertex of degree at most three admits a width-four neighborhood batch
 type: theorem
 ---
 For a vertex `v` of degree at most three, its closed neighborhood is a batch

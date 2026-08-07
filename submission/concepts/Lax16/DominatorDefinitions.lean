@@ -57,4 +57,9 @@ def CompletesActiveDominators {V : Type u} (G : SimpleGraph V)
     DistinctConcepts G 1 w z →
       Separates G 1 T w z
 
+/-- An outside vertex adjacent to all three selected neighbors. -/
+def OutsideSees {V : Type u} (G : SimpleGraph V)
+    (v : V) (Y : Finset V) (x : V) : Prop :=
+  x ∉ closedBall G 1 v ∧ ∀ y ∈ Y, G.Adj x y
+
 end Lax16.DominatorDefinitions

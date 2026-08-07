@@ -5,7 +5,7 @@ import Lax16.PlanarGraphs
 
 /-!
 ---
-title: The number of dominating neighbors in a planar graph
+title: A planar center has at most one dominator above degree four and at most two in degree four
 type: theorem
 ---
 A planar vertex with at least five neighbors has at most one dominating

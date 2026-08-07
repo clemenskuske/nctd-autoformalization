@@ -1,10 +1,9 @@
 import Lax16Proofs.AnchorLabels
-import Lax16Proofs.BatchFramework
+import Lax16Proofs.BatchReassignment
 import Lax16Proofs.CenterSet
 import Lax16Proofs.ComponentReduction
 import Lax16Proofs.DominatorCompletion
 import Lax16Proofs.DominatorCount
-import Lax16Proofs.OptimalConstants
 import Lax16Proofs.OuterplanarBlockAssignment
 import Lax16Proofs.OuterplanarBound
 import Lax16Proofs.OuterplanarLayer

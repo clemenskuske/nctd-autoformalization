@@ -1,6 +1,8 @@
-import Lax16.CenterSet
+import Mathlib.Combinatorics.SimpleGraph.Finite
 import Mathlib.Data.Fintype.EquivFin
 import Mathlib.Tactic.FinCases
+import Lax16.DominatorDefinitions
+import Lax16.PlanarGraphs
 
 namespace Lax16Proofs.CenterSet
 
@@ -66,9 +68,6 @@ private theorem false_of_k33_configuration
   exact ⟨directTopologicalModel hom hf⟩
 
 /--
----
-conclusion: Lax16.CenterSet.exists_center_set
----
 Choose two nonadjacent neighbors of the center.  At most two
 non-dominating neighbors contain both labels, since three would form a
 direct `K₃,₃`; add one missing neighbor label for each exception and pad the

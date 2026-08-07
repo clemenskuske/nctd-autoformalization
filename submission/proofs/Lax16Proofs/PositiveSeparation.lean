@@ -1,4 +1,4 @@
-import Lax16.PositiveSeparation
+import Lax16.TeachingMaps
 
 namespace Lax16Proofs.PositiveSeparation
 
@@ -7,9 +7,6 @@ open Lax16.TeachingMaps
 universe u
 
 /--
----
-conclusion: Lax16.PositiveSeparation.positive_separation_iff
----
 A separating label must belong to the teaching set whose ball contains it:
 the other two cases contradict positivity.  Conversely, either
 cross-containment failure supplies a separating witness.

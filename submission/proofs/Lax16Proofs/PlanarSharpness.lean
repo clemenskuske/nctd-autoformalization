@@ -194,9 +194,6 @@ lemma center_needs_rim_labels {d : ℕ} {T : TeachingMap (Fin 5) 1}
   exact hfour_card.trans (hwidth 0)
 
 /--
----
-conclusion: Lax16.PlanarSharpness.planar_bound_is_sharp
----
 The five-vertex wheel is planar directly from the topological-model
 definition.  An explicit map omitting one label at every vertex gives the
 upper bound.  Conversely, distinguishing the universal center ball from the
@@ -219,5 +216,17 @@ theorem planar_bound_is_sharp :
     intro d hd
     rcases hd with ⟨T, hpositive, hnoclash, hwidth⟩
     exact center_needs_rim_labels hpositive hnoclash hwidth
+
+/--
+---
+conclusion: Lax16.PlanarSharpness.positiveNCTD_ge_four
+---
+The planar wheel and the lower half of its exact dimension calculation give
+the required sharpness witness.
+-/
+theorem positiveNCTD_ge_four :
+    IsPlanar sharpPlanarGraph ∧
+      4 ≤ positiveNCTD sharpPlanarGraph 1 :=
+  ⟨sharpPlanarGraph_isPlanar, by rw [planar_bound_is_sharp.2]⟩
 
 end Lax16Proofs.PlanarSharpness

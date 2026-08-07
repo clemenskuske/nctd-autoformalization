@@ -1,4 +1,6 @@
-import Lax16.TwoDominators
+import Mathlib.Combinatorics.SimpleGraph.Finite
+import Lax16.DominatorDefinitions
+import Lax16.PlanarGraphs
 
 namespace Lax16Proofs.TwoDominators
 
@@ -9,9 +11,6 @@ open Lax16.TeachingMaps
 universe u
 
 /--
----
-conclusion: Lax16.TwoDominators.exists_two_dominator_assignment
----
 The two neighbors outside the dominating pair are nonadjacent, so they
 witness the two remaining internal comparisons.  Each active dominator also
 receives an outside witness.  When both dominators are active and distinct,

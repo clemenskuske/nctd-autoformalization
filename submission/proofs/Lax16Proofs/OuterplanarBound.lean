@@ -2,8 +2,7 @@ import Mathlib.Combinatorics.SimpleGraph.Connectivity.Finite
 import Mathlib.Combinatorics.SimpleGraph.Paths
 import Lax16.OuterplanarBound
 import Lax16.OuterplanarBlockAssignment
-import Lax16.ComponentReduction
-import Lax16Proofs.OuterplanarBlockAssignment
+import Lax16Proofs.ComponentReduction
 import Lax16Proofs.PlanarToolbox
 
 namespace Lax16Proofs.OuterplanarBound
@@ -147,7 +146,7 @@ private theorem connected_outerplanar_exact_two
     · have hn_three : 3 ≤ n := by omega
       by_cases htwo : IsTwoConnected G
       · exact
-          Lax16Proofs.OuterplanarBlockAssignment.exists_two_label_assignment
+          Lax16.OuterplanarBlockAssignment.exists_two_label_assignment
             G houter htwo
       · have hcut :
             ∃ c : V, ¬(G.induce {w : V | w ≠ c}).Connected := by
@@ -541,7 +540,7 @@ private theorem connected_outerplanar_exact_two
 ---
 conclusion: Lax16.OuterplanarBound.positiveNCTD_le_two
 assumptions:
-  - Lax16.ComponentReduction.combine_components
+  - Lax16.OuterplanarBlockAssignment.exists_two_label_assignment
 ---
 Decompose into connected components.  On each nontrivial component, recurse
 at cut vertices; the two-connected leaves use the exact block assignment.
@@ -590,7 +589,7 @@ theorem positiveNCTD_le_two {V : Type u} [Fintype V]
       · intro v
         exact Finset.card_pos.mp (by rw [hcard v]; omega)
   have hglobal : HasPositiveNCTDAtMost G 1 2 :=
-    Lax16.ComponentReduction.combine_components G 2 hcomponents
+    Lax16Proofs.ComponentReduction.combine_components G 2 hcomponents
   unfold positiveNCTD
   exact Nat.sInf_le hglobal
 

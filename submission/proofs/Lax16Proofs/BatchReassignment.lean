@@ -1,6 +1,6 @@
-import Lax16.BatchFramework
+import Lax16.BatchReassignment
 
-namespace Lax16Proofs.BatchFramework
+namespace Lax16Proofs.BatchReassignment
 
 open Lax16.TeachingMaps
 open Lax16.BatchFramework
@@ -9,7 +9,7 @@ universe u
 
 /--
 ---
-conclusion: Lax16.BatchFramework.reassignment
+conclusion: Lax16.BatchReassignment.reassignment
 ---
 Positivity and width pass directly from each vertex's last batch.  For a
 pair of vertices, their last batches either agree, when within-batch
@@ -70,4 +70,4 @@ theorem reassignment {V : Type u} {G : SimpleGraph V} {d : ℕ}
     change ((S.batch (S.last v)).teaching v).card ≤ d
     exact (hadmissible (S.last v)).2.1 v (S.mem_last v)
 
-end Lax16Proofs.BatchFramework
+end Lax16Proofs.BatchReassignment

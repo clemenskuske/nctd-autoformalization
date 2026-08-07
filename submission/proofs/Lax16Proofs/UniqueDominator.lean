@@ -1,5 +1,6 @@
-import Lax16.UniqueDominator
 import Mathlib.Tactic.FinCases
+import Lax16.DominatorDefinitions
+import Lax16.PlanarGraphs
 
 namespace Lax16Proofs.UniqueDominator
 
@@ -52,9 +53,6 @@ private theorem false_of_k33_configuration
   exact ⟨directTopologicalModel hom hf⟩
 
 /--
----
-conclusion: Lax16.UniqueDominator.exists_unique_dominator_set
----
 Choose a label of the dominator outside the center ball.  Only two concepts
 in the center ball can also contain that label, since three would form a
 direct `K₃,₃` together with the center, the outside label, and the

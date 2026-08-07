@@ -10,6 +10,8 @@ universe u
 /--
 ---
 conclusion: Lax16.SmallDegreeBatch.exists_small_degree_batch
+assumptions:
+  - Lax16.AnchorLabels.anchor_certifies
 ---
 Use the center as an anchor label for every vertex in its closed
 neighborhood.  For each ordered pair of batch vertices whose balls have a
@@ -133,11 +135,13 @@ theorem exists_small_degree_batch {V : Type u} [Fintype V]
       refine ⟨pick b a, Or.inr (picked_mem_teaching haC hba hbackward),
           Or.inr (pick_spec hbackward)⟩
   · intro a x haC hx_not_C _
-    refine ⟨v, ?_, ?_⟩
-    · change v ∈ teaching a
+    have hv_teaching : v ∈ teaching a := by
       simp only [teaching, Finset.mem_insert, true_or]
-    · have hx_not_ball_v : x ∉ closedBall G 1 v := by
+    have hv_not_ball_x : v ∉ closedBall G 1 x := by
+      have hx_not_ball_v : x ∉ closedBall G 1 v := by
         simpa [C, closedBallFinset] using hx_not_C
-      exact fun hv_ball_x => hx_not_ball_v ((mem_ball_one_comm v x).mpr hv_ball_x)
+      exact fun hv_ball_x =>
+        hx_not_ball_v ((mem_ball_one_comm v x).mpr hv_ball_x)
+    exact Lax16.AnchorLabels.anchor_certifies hv_teaching x hv_not_ball_x
 
 end Lax16Proofs.SmallDegreeBatch

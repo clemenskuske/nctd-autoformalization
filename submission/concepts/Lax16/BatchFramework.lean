@@ -2,8 +2,8 @@ import Lax16.TeachingMaps
 
 /-!
 ---
-title: Admissible batches and last reassignment
-type: theorem
+title: Admissible batches and last-assignment schedules
+type: definition
 ---
 A batch consists of a finite set of vertices and a proposed teaching set for
 each vertex.  It is admissible at radius one when the teaching sets are
@@ -12,8 +12,7 @@ each batch vertex certifies itself against every distinct concept outside the
 batch.
 
 A finite schedule records, for each vertex, the last batch containing it.
-The reassignment principle states that retaining exactly those last teaching
-sets produces a global positive no-clash teaching map of the same width.
+Retaining the corresponding teaching sets defines its final assignment.
 -/
 
 namespace Lax16.BatchFramework
@@ -62,16 +61,5 @@ structure BatchSchedule {V : Type u} (G : SimpleGraph V) where
 def BatchSchedule.finalTeaching {V : Type u} {G : SimpleGraph V}
     (S : BatchSchedule G) : TeachingMap V 1 :=
   fun v => (S.batch (S.last v)).teaching v
-
-/--
-If every batch in a covering schedule is admissible with width `d`, the
-last-assignment map is a positive radius-one no-clash map of width `d`.
--/
-axiom reassignment {V : Type u} {G : SimpleGraph V} {d : ℕ}
-    (S : BatchSchedule G)
-    (hadmissible : ∀ i : Fin S.batchCount, IsAdmissible G d (S.batch i)) :
-    IsPositive G 1 S.finalTeaching ∧
-    IsNoClash G 1 S.finalTeaching ∧
-    HasWidthAtMost S.finalTeaching d
 
 end Lax16.BatchFramework

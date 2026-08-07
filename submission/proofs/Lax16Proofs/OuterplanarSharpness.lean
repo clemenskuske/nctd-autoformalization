@@ -890,9 +890,6 @@ lemma sharpOuterplanarGraph_isOuterplanar :
   ⟨no_topological_K4, no_topological_K23⟩
 
 /--
----
-conclusion: Lax16.OuterplanarSharpness.outerplanar_bound_is_sharp
----
 The two forbidden topological models are excluded directly using the
 degree-three branch vertices and explicit vertex separators of the graph.
 An explicit positive width-two map proves both upper bounds, while four
@@ -904,5 +901,18 @@ theorem outerplanar_bound_is_sharp :
     nctd sharpOuterplanarGraph 1 = 2 ∧
     positiveNCTD sharpOuterplanarGraph 1 = 2 :=
   ⟨sharpOuterplanarGraph_isOuterplanar, nctd_sharp_values⟩
+
+/--
+---
+conclusion: Lax16.OuterplanarSharpness.positiveNCTD_ge_two
+---
+The explicit outerplanar example and the lower half of its exact dimension
+calculation give the required sharpness witness.
+-/
+theorem positiveNCTD_ge_two :
+    IsOuterplanar sharpOuterplanarGraph ∧
+      2 ≤ positiveNCTD sharpOuterplanarGraph 1 :=
+  ⟨sharpOuterplanarGraph_isOuterplanar,
+    by rw [outerplanar_bound_is_sharp.2.2]⟩
 
 end Lax16Proofs.OuterplanarSharpness

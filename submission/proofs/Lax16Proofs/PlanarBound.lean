@@ -1,4 +1,5 @@
 import Lax16.BatchFramework
+import Lax16.BatchReassignment
 import Lax16.PlanarBound
 import Lax16.PlanarVertexBatch
 import Lax16.SmallDegreeBatch
@@ -15,9 +16,9 @@ universe u
 ---
 conclusion: Lax16.PlanarBound.positiveNCTD_le_four
 assumptions:
+  - Lax16.BatchReassignment.reassignment
+  - Lax16.PlanarVertexBatch.exists_planar_vertex_batch_of_degree_ge_four
   - Lax16.SmallDegreeBatch.exists_small_degree_batch
-  - Lax16.PlanarVertexBatch.exists_planar_vertex_batch
-  - Lax16.BatchFramework.reassignment
 ---
 Choose an admissible batch centered at each vertex.  The schedule is indexed
 by all vertices, and the last batch of a vertex is the largest index of a
@@ -43,7 +44,7 @@ theorem positiveNCTD_le_four {V : Type u} [Fintype V]
       rw [hvertices]
       exact hcenter v
     · have hdegree' : 4 ≤ (G.neighborSet v).ncard := by omega
-      rcases Lax16.PlanarVertexBatch.exists_planar_vertex_batch
+      rcases Lax16.PlanarVertexBatch.exists_planar_vertex_batch_of_degree_ge_four
           G hplanar v hdegree' with ⟨B, hcontains, _, hadmissible⟩
       exact ⟨B, hcontains (hcenter v), hadmissible⟩
   let chosenBatch : V → BatchAssignment G :=
@@ -81,7 +82,7 @@ theorem positiveNCTD_le_four {V : Type u} [Fintype V]
         IsAdmissible G 4 (schedule.batch i) := by
     intro i
     exact chosenBatch_admissible (vertexIndex.symm i)
-  rcases Lax16.BatchFramework.reassignment schedule hallAdmissible with
+  rcases Lax16.BatchReassignment.reassignment schedule hallAdmissible with
     ⟨hpositive, hnoclash, hwidth⟩
   unfold positiveNCTD
   apply Nat.sInf_le

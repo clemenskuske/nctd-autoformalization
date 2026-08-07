@@ -1,16 +1,12 @@
-import Lax16.TwinReduction
+import Lax16.TeachingMaps
 
 namespace Lax16Proofs.TwinReduction
 
 open Lax16.TeachingMaps
-open Lax16.TwinReduction
 
 universe u
 
 /--
----
-conclusion: Lax16.TwinReduction.copy_twin_preserves
----
 For a pair involving the target twin, apply the original no-clash condition
 to the corresponding pair involving the source twin.  Equality of their
 closed balls transfers both the distinctness hypothesis and the witness.

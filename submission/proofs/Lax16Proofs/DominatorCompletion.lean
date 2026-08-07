@@ -1,7 +1,6 @@
-import Lax16.DominatorCompletion
-import Lax16.DominatorCount
-import Lax16.UniqueDominator
-import Lax16.TwoDominators
+import Lax16Proofs.DominatorCount
+import Lax16Proofs.UniqueDominator
+import Lax16Proofs.TwoDominators
 
 namespace Lax16Proofs.DominatorCompletion
 
@@ -12,13 +11,6 @@ open Lax16.TeachingMaps
 universe u
 
 /--
----
-conclusion: Lax16.DominatorCompletion.exists_dominator_completion
-assumptions:
-  - Lax16.DominatorCount.dominator_count_bounds
-  - Lax16.UniqueDominator.exists_unique_dominator_set
-  - Lax16.TwoDominators.exists_two_dominator_assignment
----
 The planar counting bound leaves no dominators, one dominator, or (only at
 degree four) two dominators.  The empty case is vacuous, the singleton case
 uses the unique-dominator construction when that vertex is active, and the
@@ -48,7 +40,7 @@ theorem exists_dominator_completion {V : Type u} [Fintype V]
       ∃ T : TeachingMap V 1, CompletesActiveDominators G v T := by
     by_cases hactive : IsActiveDominator G v w
     · obtain ⟨S, hS⟩ :=
-        Lax16.UniqueDominator.exists_unique_dominator_set
+        Lax16Proofs.UniqueDominator.exists_unique_dominator_set
           G hplanar v w hsingleton hactive
       refine ⟨fun x => if x = w then S else ∅, ?_⟩
       constructor
@@ -89,7 +81,7 @@ theorem exists_dominator_completion {V : Type u} [Fintype V]
         exact False.elim (hactive hx)
 
   have hbounds :=
-    Lax16.DominatorCount.dominator_count_bounds G hplanar v
+    Lax16Proofs.DominatorCount.dominator_count_bounds G hplanar v
   by_cases hdegree_four : (G.neighborSet v).ncard = 4
   · have hcard_le : (dominatorSet G v).ncard ≤ 2 :=
       hbounds.2 hdegree_four
@@ -106,7 +98,7 @@ theorem exists_dominator_completion {V : Type u} [Fintype V]
       exact singleton_completion w hw
     · obtain ⟨w₁, w₂, hne, hdom⟩ := Set.ncard_eq_two.mp htwo
       exact
-        Lax16.TwoDominators.exists_two_dominator_assignment
+        Lax16Proofs.TwoDominators.exists_two_dominator_assignment
           G hplanar v w₁ w₂ hdegree_four hne hdom
   · have hdegree_five : 5 ≤ (G.neighborSet v).ncard := by omega
     have hcard_le : (dominatorSet G v).ncard ≤ 1 :=

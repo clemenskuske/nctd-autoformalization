@@ -3,7 +3,7 @@ import Lax16.TeachingMaps
 
 /-!
 ---
-title: An outerplanar neighbor layer with ambient twin witnesses
+title: Outerplanar neighbor layers admit width-three ambient assignments
 type: theorem
 ---
 Let `U` be a set of neighbors of a vertex `v₀`, and suppose the graph induced
