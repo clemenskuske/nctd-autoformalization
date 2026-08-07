@@ -1,4 +1,4 @@
-This submission formalizes the positive no-clash teaching dimension of
+This submission formalizes the positive no-clash teaching dimension (NCTD) of
 closed graph neighborhoods.  The teaching definitions are parameterized by a
 radius `k`: the concept represented by a vertex is its closed ball of radius
 `k`.  The results of the accompanying draft concern `k = 1`.
