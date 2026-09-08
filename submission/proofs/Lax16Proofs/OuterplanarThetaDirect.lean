@@ -43,40 +43,40 @@ def span (T : ThetaModel G) : ℕ :=
 noncomputable def rank (T : ThetaModel G) : ℕ :=
   T.size * (Fintype.card V + 1) + T.span
 
-theorem mem_vertices_iff (T : ThetaModel G) {z : V} :
+lemma mem_vertices_iff (T : ThetaModel G) {z : V} :
     z ∈ T.vertices ↔ z ∈ T.vertexSet := by
   classical
   simp [vertices]
 
-theorem route_support_subset_vertexSet (T : ThetaModel G) (i : Fin 3) :
+lemma route_support_subset_vertexSet (T : ThetaModel G) (i : Fin 3) :
     {z | z ∈ (T.route i).support} ⊆ T.vertexSet :=
   fun _ hz => ⟨i, hz⟩
 
-theorem left_mem_vertexSet (T : ThetaModel G) :
+lemma left_mem_vertexSet (T : ThetaModel G) :
     T.left ∈ T.vertexSet :=
   ⟨0, (T.route 0).start_mem_support⟩
 
-theorem right_mem_vertexSet (T : ThetaModel G) :
+lemma right_mem_vertexSet (T : ThetaModel G) :
     T.right ∈ T.vertexSet :=
   ⟨0, (T.route 0).end_mem_support⟩
 
-theorem size_le_card (T : ThetaModel G) :
+lemma size_le_card (T : ThetaModel G) :
     T.size ≤ Fintype.card V := by
   classical
   exact Finset.card_le_univ T.vertices
 
-theorem route_length_le_span (T : ThetaModel G) (i : Fin 3) :
+lemma route_length_le_span (T : ThetaModel G) (i : Fin 3) :
     (T.route i).length ≤ T.span := by
   fin_cases i <;> simp [span]
 
-theorem span_lt_card (T : ThetaModel G) :
+lemma span_lt_card (T : ThetaModel G) :
     T.span < Fintype.card V := by
   simp only [span, max_lt_iff]
   exact ⟨(T.route_isPath 0).length_lt,
     (T.route_isPath 1).length_lt,
     (T.route_isPath 2).length_lt⟩
 
-theorem rank_lt_bound (T : ThetaModel G) :
+lemma rank_lt_bound (T : ThetaModel G) :
     T.rank < (Fintype.card V + 1) * (Fintype.card V + 1) := by
   unfold rank
   have hs := T.size_le_card
@@ -84,7 +84,7 @@ theorem rank_lt_bound (T : ThetaModel G) :
   nlinarith
 
 /-- A finite graph has a strong theta maximal for support/span rank. -/
-theorem exists_rank_maximal (T₀ : ThetaModel G) :
+lemma exists_rank_maximal (T₀ : ThetaModel G) :
     ∃ T : ThetaModel G, ∀ T' : ThetaModel G, T'.rank ≤ T.rank := by
   classical
   let bound := (Fintype.card V + 1) * (Fintype.card V + 1)
@@ -106,7 +106,7 @@ theorem exists_rank_maximal (T₀ : ThetaModel G) :
   exact ⟨T'.rank_lt_bound, ⟨T', rfl⟩⟩
 
 /-- Strictly more support beats every possible span loss. -/
-theorem rank_lt_of_size_lt
+lemma rank_lt_of_size_lt
     (T T' : ThetaModel G) (hsize : T.size < T'.size) :
     T.rank < T'.rank := by
   unfold rank
@@ -127,7 +127,7 @@ theorem rank_lt_of_size_lt
       Nat.le_add_right _ _
 
 /-- At equal support size, rank comparison is exactly span comparison. -/
-theorem rank_lt_of_size_eq_of_span_lt
+lemma rank_lt_of_size_eq_of_span_lt
     (T T' : ThetaModel G) (hsize : T.size = T'.size)
     (hspan : T.span < T'.span) :
     T.rank < T'.rank := by
@@ -135,7 +135,7 @@ theorem rank_lt_of_size_eq_of_span_lt
   rw [hsize]
   exact Nat.add_lt_add_left hspan _
 
-theorem size_eq_of_vertexSet_eq (T T' : ThetaModel G)
+lemma size_eq_of_vertexSet_eq (T T' : ThetaModel G)
     (h : T.vertexSet = T'.vertexSet) :
     T.size = T'.size := by
   classical
@@ -144,7 +144,7 @@ theorem size_eq_of_vertexSet_eq (T T' : ThetaModel G)
   ext z
   simp [h]
 
-theorem size_lt_of_vertexSet_ssubset (T T' : ThetaModel G)
+lemma size_lt_of_vertexSet_ssubset (T T' : ThetaModel G)
     (h : T.vertexSet ⊂ T'.vertexSet) :
     T.size < T'.size := by
   classical
@@ -161,7 +161,7 @@ theorem size_lt_of_vertexSet_ssubset (T T' : ThetaModel G)
     rw [← T.mem_vertices_iff, heq, T'.mem_vertices_iff]
     exact hz
 
-theorem size_lt_of_vertexSet_subset_of_new
+lemma size_lt_of_vertexSet_subset_of_new
     (T T' : ThetaModel G)
     (hsub : T.vertexSet ⊆ T'.vertexSet)
     {z : V} (hznew : z ∉ T.vertexSet) (hzmem : z ∈ T'.vertexSet) :
@@ -172,7 +172,7 @@ theorem size_lt_of_vertexSet_subset_of_new
   exact hznew (hreverse hzmem)
 
 /-- A rank-maximal theta cannot be replaced by one covering a new vertex. -/
-theorem not_vertexSet_subset_of_rank_maximal
+lemma not_vertexSet_subset_of_rank_maximal
     (T : ThetaModel G)
     (hmax : ∀ T' : ThetaModel G, T'.rank ≤ T.rank)
     (T' : ThetaModel G)
@@ -185,7 +185,7 @@ theorem not_vertexSet_subset_of_rank_maximal
 
 /-- A rank-maximal theta cannot have an equal-support replacement with a
 route longer than the old span. -/
-theorem not_longer_route_of_rank_maximal
+lemma not_longer_route_of_rank_maximal
     (T : ThetaModel G)
     (hmax : ∀ T' : ThetaModel G, T'.rank ≤ T.rank)
     (T' : ThetaModel G)
@@ -220,7 +220,7 @@ variable {V : Type u} [Fintype V] {G : SimpleGraph V}
 
 /-- An ear interior is disjoint from any walk whose interior lies in the
 old theta. -/
-theorem disjoint_walkInterior_of_subset (E : ThetaEar T)
+lemma disjoint_walkInterior_of_subset (E : ThetaEar T)
     {a b : V} (p : G.Walk a b)
     (hp : walkInterior p ⊆ T.vertexSet) :
     Disjoint (walkInterior E.route) (walkInterior p) := by
@@ -229,7 +229,7 @@ theorem disjoint_walkInterior_of_subset (E : ThetaEar T)
 end ThetaEar
 
 /-- Two simple paths sharing only their glued endpoint append to a path. -/
-theorem isPath_append_of_eq_endpoint
+lemma isPath_append_of_eq_endpoint
     {V : Type u} {G : SimpleGraph V} {a b c : V}
     (p : G.Walk a b) (q : G.Walk b c)
     (hp : p.IsPath) (hq : q.IsPath)
@@ -250,7 +250,7 @@ theorem isPath_append_of_eq_endpoint
       exact ((SimpleGraph.Walk.cons_isPath_iff h r).mp hq).2 hyqtail
 
 /-- A prefix ending at an internal point has interior in the old interior. -/
-theorem walkInterior_takeUntil_subset
+lemma walkInterior_takeUntil_subset
     {V : Type u} {G : SimpleGraph V} [DecidableEq V]
     {a b x : V} (p : G.Walk a b) (hp : p.IsPath)
     (hx : x ∈ walkInterior p) :
@@ -263,7 +263,7 @@ theorem walkInterior_takeUntil_subset
   exact hz.1
 
 /-- A suffix beginning at an internal point has interior in the old interior. -/
-theorem walkInterior_dropUntil_subset
+lemma walkInterior_dropUntil_subset
     {V : Type u} {G : SimpleGraph V} [DecidableEq V]
     {a b x : V} (p : G.Walk a b) (hp : p.IsPath)
     (hx : x ∈ walkInterior p) :
@@ -282,7 +282,7 @@ theorem walkInterior_dropUntil_subset
     hx.2.1.symm ha_take ha_drop
   exact hcommon rfl
 
-theorem walkInterior_reverse
+lemma walkInterior_reverse
     {V : Type u} {G : SimpleGraph V} {a b : V}
     (p : G.Walk a b) :
     walkInterior p.reverse = walkInterior p := by
@@ -293,7 +293,7 @@ theorem walkInterior_reverse
 
 /-- Once a path is cut at a non-start vertex, its original start does not
 occur in the suffix. -/
-theorem start_not_mem_dropUntil
+lemma start_not_mem_dropUntil
     {V : Type u} {G : SimpleGraph V} [DecidableEq V]
     {a b x : V} (p : G.Walk a b) (hp : p.IsPath)
     (hx : x ∈ p.support) (hax : a ≠ x) :
@@ -305,7 +305,7 @@ theorem start_not_mem_dropUntil
     (p.takeUntil x hx).start_mem_support ha rfl
 
 /-- Distinct theta routes can meet only at their two common endpoints. -/
-theorem eq_endpoint_of_mem_two_theta_routes
+lemma eq_endpoint_of_mem_two_theta_routes
     {V : Type u} {G : SimpleGraph V}
     (T : ThetaModel G) {i j : Fin 3} (hij : i ≠ j)
     {z : V} (hzi : z ∈ (T.route i).support)
@@ -335,7 +335,7 @@ noncomputable def sameArmDetour
   exact (beforeX.reverse.append (T.route j)).append afterZ.reverse
 
 /-- The complementary route in a same-arm rotation is simple. -/
-theorem sameArmDetour_isPath
+lemma sameArmDetour_isPath
     {V : Type u} {G : SimpleGraph V} [DecidableEq V]
     (T : ThetaModel G) {i j : Fin 3} (hij : i ≠ j)
     {x z : V} (hx : x ∈ walkInterior (T.route i))
@@ -401,7 +401,7 @@ theorem sameArmDetour_isPath
   simpa [sameArmDetour, beforeX, afterX, afterZ, p, q] using hsecond
 
 /-- The two halves of a path split at `x` have disjoint interiors. -/
-theorem disjoint_walkInterior_takeUntil_dropUntil
+lemma disjoint_walkInterior_takeUntil_dropUntil
     {V : Type u} {G : SimpleGraph V} [DecidableEq V]
     {a b x : V} (p : G.Walk a b) (hp : p.IsPath)
     (hx : x ∈ p.support) :
@@ -442,21 +442,21 @@ def thetaModelOfThreePaths
     fin_cases i <;> fin_cases j <;>
       simp_all [Disjoint.symm]
 
-@[simp] theorem thetaModelOfThreePaths_route_zero
+@[simp] lemma thetaModelOfThreePaths_route_zero
     {V : Type u} {G : SimpleGraph V} {a b : V}
     (hab : a ≠ b) (p₀ p₁ p₂ : G.Walk a b)
     (hp₀ hp₁ hp₂) (h01snd h02snd h12snd) (h01 h02 h12) :
     (thetaModelOfThreePaths hab p₀ p₁ p₂
       hp₀ hp₁ hp₂ h01snd h02snd h12snd h01 h02 h12).route 0 = p₀ := rfl
 
-@[simp] theorem thetaModelOfThreePaths_route_one
+@[simp] lemma thetaModelOfThreePaths_route_one
     {V : Type u} {G : SimpleGraph V} {a b : V}
     (hab : a ≠ b) (p₀ p₁ p₂ : G.Walk a b)
     (hp₀ hp₁ hp₂) (h01snd h02snd h12snd) (h01 h02 h12) :
     (thetaModelOfThreePaths hab p₀ p₁ p₂
       hp₀ hp₁ hp₂ h01snd h02snd h12snd h01 h02 h12).route 1 = p₁ := rfl
 
-@[simp] theorem thetaModelOfThreePaths_route_two
+@[simp] lemma thetaModelOfThreePaths_route_two
     {V : Type u} {G : SimpleGraph V} {a b : V}
     (hab : a ≠ b) (p₀ p₁ p₂ : G.Walk a b)
     (hp₀ hp₁ hp₂) (h01snd h02snd h12snd) (h01 h02 h12) :
@@ -472,7 +472,7 @@ noncomputable def sameArmSegment
     G.Walk x z :=
   ((T.route i).dropUntil x hx).takeUntil z hzAfter
 
-theorem sameArmSegment_isPath
+lemma sameArmSegment_isPath
     {V : Type u} {G : SimpleGraph V} [DecidableEq V]
     (T : ThetaModel G) (i : Fin 3)
     {x z : V} (hx : x ∈ (T.route i).support)
@@ -480,7 +480,7 @@ theorem sameArmSegment_isPath
     (sameArmSegment T i hx hzAfter).IsPath := by
   exact ((T.route_isPath i).dropUntil hx).takeUntil hzAfter
 
-theorem sameArmSegment_interior_subset_vertexSet
+lemma sameArmSegment_interior_subset_vertexSet
     {V : Type u} {G : SimpleGraph V} [DecidableEq V]
     (T : ThetaModel G) (i : Fin 3)
     {x z : V} (hx : x ∈ (T.route i).support)
@@ -493,7 +493,7 @@ theorem sameArmSegment_interior_subset_vertexSet
     hzAfter
   exact hy.1
 
-theorem sameArmDetour_interior_subset_vertexSet
+lemma sameArmDetour_interior_subset_vertexSet
     {V : Type u} {G : SimpleGraph V} [DecidableEq V]
     (T : ThetaModel G) (i j : Fin 3)
     {x z : V} (hx : x ∈ (T.route i).support)
@@ -523,7 +523,7 @@ theorem sameArmDetour_interior_subset_vertexSet
 
 /-- The on-arm segment and the complementary route are internally
 disjoint; this is the central local verification in the same-arm case. -/
-theorem sameArmSegment_disjoint_detour
+lemma sameArmSegment_disjoint_detour
     {V : Type u} {G : SimpleGraph V} [DecidableEq V]
     (T : ThetaModel G) {i j : Fin 3} (hij : i ≠ j)
     {x z : V} (hx : x ∈ walkInterior (T.route i))
@@ -656,7 +656,7 @@ verification shows equal covered support and that the complementary detour
 is longer than the old span.  This is the exact interface used by the final
 direct-arm case split.
 -/
-theorem false_of_sameArmRotatedTheta
+lemma false_of_sameArmRotatedTheta
     {V : Type u} [Fintype V] {G : SimpleGraph V} [DecidableEq V]
     (T : ThetaModel G)
     (hmax : ∀ T' : ThetaModel G, T'.rank ≤ T.rank)
@@ -698,7 +698,7 @@ theorem false_of_sameArmRotatedTheta
 
 /-- The off-theta-ear variant: a single new interior vertex makes the
 rotated theta strictly larger, so no span comparison is needed. -/
-theorem false_of_sameArmRotatedTheta_new_vertex
+lemma false_of_sameArmRotatedTheta_new_vertex
     {V : Type u} [Fintype V] {G : SimpleGraph V} [DecidableEq V]
     (T : ThetaModel G)
     (hmax : ∀ T' : ThetaModel G, T'.rank ≤ T.rank)
@@ -752,7 +752,7 @@ noncomputable def leftReturnDetour
     G.Walk x T.left :=
   ((T.route i).dropUntil x hx).append (T.route j).reverse
 
-theorem leftReturnDetour_isPath
+lemma leftReturnDetour_isPath
     {V : Type u} {G : SimpleGraph V} [DecidableEq V]
     (T : ThetaModel G) {i j : Fin 3} (hij : i ≠ j)
     {x : V} (hx : x ∈ walkInterior (T.route i)) :
@@ -775,7 +775,7 @@ theorem leftReturnDetour_isPath
         hx.2.1.symm hyafter
   · exact hyright
 
-theorem leftReturnPrefix_interior_subset_vertexSet
+lemma leftReturnPrefix_interior_subset_vertexSet
     {V : Type u} {G : SimpleGraph V} [DecidableEq V]
     (T : ThetaModel G) (i : Fin 3)
     {x : V} (hx : x ∈ (T.route i).support) :
@@ -786,7 +786,7 @@ theorem leftReturnPrefix_interior_subset_vertexSet
   apply (T.route i).support_takeUntil_subset_support hx
   simpa [SimpleGraph.Walk.support_reverse] using hy.1
 
-theorem leftReturnDetour_interior_subset_vertexSet
+lemma leftReturnDetour_interior_subset_vertexSet
     {V : Type u} {G : SimpleGraph V} [DecidableEq V]
     (T : ThetaModel G) (i j : Fin 3)
     {x : V} (hx : x ∈ (T.route i).support) :
@@ -801,7 +801,7 @@ theorem leftReturnDetour_interior_subset_vertexSet
 
 /-- The reversed prefix and the suffix-through-another-arm detour in the
 left-return construction are internally disjoint. -/
-theorem leftReturnPrefix_disjoint_detour
+lemma leftReturnPrefix_disjoint_detour
     {V : Type u} {G : SimpleGraph V} [DecidableEq V]
     (T : ThetaModel G) {i j : Fin 3} (hij : i ≠ j)
     {x : V} (hx : x ∈ walkInterior (T.route i)) :
@@ -873,7 +873,7 @@ noncomputable def leftReturnRotatedTheta
 
 /-- A left-return off-theta ear contradicts rank maximality as soon as the
 rotated theta is known to cover the old theta and one new ear vertex. -/
-theorem false_of_leftReturnRotatedTheta_new_vertex
+lemma false_of_leftReturnRotatedTheta_new_vertex
     {V : Type u} [Fintype V] {G : SimpleGraph V} [DecidableEq V]
     (T : ThetaModel G)
     (hmax : ∀ T' : ThetaModel G, T'.rank ≤ T.rank)

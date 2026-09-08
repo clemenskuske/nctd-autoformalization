@@ -10,7 +10,7 @@ open Lax16.TeachingMaps
 
 universe u v
 
-private theorem walkInterior_toWalk_eq_empty
+private lemma walkInterior_toWalk_eq_empty
     {V : Type u} {G : SimpleGraph V} {a b : V} (h : G.Adj a b) :
     walkInterior h.toWalk = ∅ := by
   ext x
@@ -34,7 +34,7 @@ private def directTopologicalModel
     rw [walkInterior_toWalk_eq_empty, walkInterior_toWalk_eq_empty]
     simp
 
-private theorem false_of_k33_configuration
+private lemma false_of_k33_configuration
     {V : Type u} {G : SimpleGraph V} (hplanar : IsPlanar G)
     (f : (Fin 3 ⊕ Fin 3) → V) (hf : Function.Injective f)
     (hadj : ∀ i j : Fin 3, G.Adj (f (Sum.inl i)) (f (Sum.inr j))) :
@@ -58,7 +58,7 @@ in the center ball can also contain that label, since three would form a
 direct `K₃,₃` together with the center, the outside label, and the
 dominator.  One further positive label handles each of those exceptions.
 -/
-theorem exists_unique_dominator_set {V : Type u}
+lemma exists_unique_dominator_set {V : Type u}
     (G : SimpleGraph V) (hplanar : IsPlanar G)
     (v w : V)
     (hunique : dominatorSet G v = {w})

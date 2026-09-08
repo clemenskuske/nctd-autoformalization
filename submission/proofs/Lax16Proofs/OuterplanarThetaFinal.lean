@@ -15,7 +15,7 @@ universe u
 
 set_option maxHeartbeats 2000000
 
-private theorem walkInterior_cons_subset_tail
+private lemma walkInterior_cons_subset_tail
     {V : Type u} {G : SimpleGraph V}
     {a b c x : V} (h : G.Adj a b) (p : G.Walk b c)
     (hx : x ∈ walkInterior (.cons h p)) :
@@ -24,7 +24,7 @@ private theorem walkInterior_cons_subset_tail
   simp only [SimpleGraph.Walk.support_cons, List.mem_cons] at hxsupport
   exact hxsupport.resolve_left hxne
 
-private theorem snd_mem_walkInterior_of_two_le
+private lemma snd_mem_walkInterior_of_two_le
     {V : Type u} {G : SimpleGraph V}
     {a b : V} (p : G.Walk a b) (hp : p.IsPath)
     (hlen : 2 ≤ p.length) :
@@ -43,7 +43,7 @@ private theorem snd_mem_walkInterior_of_two_le
 An edge leaving a theta extends, by two-connectedness, to a path whose
 first return to the theta is its final vertex.
 -/
-theorem exists_firstReturnEar_of_adj_outside
+lemma exists_firstReturnEar_of_adj_outside
     {V : Type u} [Fintype V] {G : SimpleGraph V}
     (htwo : IsTwoConnected G) (T : ThetaModel G)
     {x y : V}
@@ -107,7 +107,7 @@ theorem exists_firstReturnEar_of_adj_outside
 
 /-- Besides two prescribed distinct vertices, degree at least three gives
 another neighbor. -/
-theorem exists_extra_neighbor
+lemma exists_extra_neighbor
     {V : Type u} [Fintype V] (G : SimpleGraph V)
     [DecidableRel G.Adj]
     {v a b : V} (hab : a ≠ b) (hdegree : 3 ≤ G.degree v) :
@@ -132,7 +132,7 @@ theorem exists_extra_neighbor
 
 /-- At the second vertex of a long path, minimum degree three supplies an
 edge other than the preceding and following path edges. -/
-theorem exists_extra_neighbor_at_snd
+lemma exists_extra_neighbor_at_snd
     {V : Type u} [Fintype V] (G : SimpleGraph V)
     [DecidableRel G.Adj]
     {a b : V} (p : G.Walk a b) (hp : p.IsPath)
@@ -153,7 +153,7 @@ theorem exists_extra_neighbor_at_snd
 The extra edge at the second vertex of a long theta arm either leaves the
 theta, stays on that arm, or reaches a distinct arm.
 -/
-theorem extra_edge_trichotomy
+lemma extra_edge_trichotomy
     {V : Type u} [Fintype V] {G : SimpleGraph V}
     (T : ThetaModel G) [DecidableRel G.Adj]
     (hdegree : ∀ v : V, 3 ≤ G.degree v)
@@ -181,7 +181,7 @@ Concrete extra-edge/ear case split.  The three handler arguments isolate the
 remaining geometric verifications: same-arm rotation, first-return ear, and
 cross-arm `K₄`.
 -/
-theorem rank_maximal_escape_of_cases
+lemma rank_maximal_escape_of_cases
     {V : Type u} [Fintype V] {G : SimpleGraph V}
     [DecidableRel G.Adj]
     (htwo : IsTwoConnected G)
@@ -231,7 +231,7 @@ theorem rank_maximal_escape_of_cases
   · exact hsame z hzadj hzleft hznext hzsame
   · exact hcross z hzadj hzleft hznext j hji hzj
 
-private theorem eq_start_or_end_of_length_one
+private lemma eq_start_or_end_of_length_one
     {V : Type u} {G : SimpleGraph V} {a b z : V}
     (p : G.Walk a b) (hlen : p.length = 1)
     (hz : z ∈ p.support) :
@@ -250,7 +250,7 @@ The cross-arm branch is completely discharged by the compiled `K₄`
 constructor.  A hit on the direct arm, or at the common right endpoint,
 falls back to the same-arm handler.
 -/
-theorem rank_maximal_escape_of_same_and_outside
+lemma rank_maximal_escape_of_same_and_outside
     {V : Type u} [Fintype V] {G : SimpleGraph V}
     [DecidableRel G.Adj]
     (houter : IsOuterplanar G)
@@ -339,7 +339,7 @@ Every other return is either the common right endpoint, hence a same-arm
 return, or an internal point of the other long arm, hence a topological
 `K₄`.
 -/
-theorem rank_maximal_escape_of_geometric_uses
+lemma rank_maximal_escape_of_geometric_uses
     {V : Type u} [Fintype V] {G : SimpleGraph V}
     [DecidableRel G.Adj]
     (houter : IsOuterplanar G)
@@ -436,7 +436,7 @@ The compiled same-arm replacement discharges both the chord and off-theta
 same-arm return cases.  Only the left-return replacement remains as an
 explicit callback.
 -/
-theorem rank_maximal_escape_of_left_return_use
+lemma rank_maximal_escape_of_left_return_use
     {V : Type u} [Fintype V] {G : SimpleGraph V}
     [DecidableRel G.Adj]
     (houter : IsOuterplanar G)
@@ -497,7 +497,7 @@ theorem rank_maximal_escape_of_left_return_use
   · exact hleftReturn
 
 /-- The complete rank-maximal-theta escape contradiction. -/
-theorem rank_maximal_escape
+lemma rank_maximal_escape
     {V : Type u} [Fintype V] (G : SimpleGraph V)
     [DecidableRel G.Adj]
     (houter : IsOuterplanar G)
@@ -524,7 +524,7 @@ theorem rank_maximal_escape
     T hmax hij hid.symm hjd.symm hd E hEstart hx hEstop
     hzInterior hzout
 
-private theorem direct_arm_unique
+private lemma direct_arm_unique
     {V : Type u} {G : SimpleGraph V}
     (T : ThetaModel G) {i j : Fin 3}
     (hi : (T.route i).length = 1)
@@ -541,7 +541,7 @@ private theorem direct_arm_unique
   rw [hisnd, hjsnd]
 
 /-- Order the two arms complementary to `d` by length. -/
-private theorem exists_ordered_other_arms
+private lemma exists_ordered_other_arms
     {V : Type u} {G : SimpleGraph V}
     (T : ThetaModel G) (d : Fin 3) :
     ∃ i j : Fin 3,
@@ -565,7 +565,7 @@ private theorem exists_ordered_other_arms
 Common setup for the final contradiction: choose a rank-maximal theta, its
 unique direct arm, and the shorter of the two remaining arms.
 -/
-theorem min_degree_three_false_of_rank_maximal_escape
+lemma min_degree_three_false_of_rank_maximal_escape
     (escape :
       ∀ {W : Type u} [Fintype W] (H : SimpleGraph W)
         [DecidableRel H.Adj],
@@ -612,7 +612,7 @@ theorem min_degree_three_false_of_rank_maximal_escape
   exact escape G houter htwo hmin T hmax d i j hd hij hid hjd hlen hle
 
 /-- Two-connectedness forces every vertex to have at least two neighbors. -/
-theorem two_le_degree_of_twoConnected
+lemma two_le_degree_of_twoConnected
     {V : Type u} [Fintype V] (G : SimpleGraph V)
     [DecidableRel G.Adj]
     (htwo : IsTwoConnected G) (v : V) :
@@ -679,7 +679,7 @@ theorem two_le_degree_of_twoConnected
 Once minimum degree three has been contradicted, two-connectedness upgrades
 the resulting degree bound to equality two.
 -/
-theorem exists_degree_two_of_min_degree_contradiction
+lemma exists_degree_two_of_min_degree_contradiction
     {V : Type u} [Fintype V] (G : SimpleGraph V)
     [DecidableRel G.Adj]
     (htwo : IsTwoConnected G)
@@ -699,7 +699,7 @@ theorem exists_degree_two_of_min_degree_contradiction
 The final structural seam: it is enough to rule out minimum degree three
 using the rank-maximal theta construction.
 -/
-theorem exists_degree_two_of_theta_contradiction
+lemma exists_degree_two_of_theta_contradiction
     (theta_contra :
       ∀ {W : Type u} [Fintype W] (H : SimpleGraph W),
         ∀ [DecidableRel H.Adj],
@@ -717,7 +717,7 @@ theorem exists_degree_two_of_theta_contradiction
 
 /-- An outerplanar two-connected finite graph cannot have minimum degree
 at least three. -/
-theorem min_degree_three_false
+lemma min_degree_three_false
     {V : Type u} [Fintype V] (G : SimpleGraph V)
     [DecidableRel G.Adj]
     (houter : IsOuterplanar G)
@@ -729,7 +729,7 @@ theorem min_degree_three_false
 
 /-- Every finite outerplanar two-connected graph has a vertex of degree
 exactly two. -/
-theorem exists_degree_two_outerplanar_twoConnected
+lemma exists_degree_two_outerplanar_twoConnected
     {V : Type u} [Fintype V] (G : SimpleGraph V)
     [DecidableRel G.Adj]
     (houter : IsOuterplanar G)

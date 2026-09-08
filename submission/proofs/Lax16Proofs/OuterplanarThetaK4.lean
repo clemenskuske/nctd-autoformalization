@@ -11,7 +11,7 @@ universe u
 
 set_option maxHeartbeats 2000000
 
-private theorem walkInterior_eq_empty_of_length_eq_one
+private lemma walkInterior_eq_empty_of_length_eq_one
     {V : Type u} {G : SimpleGraph V} {a b : V}
     (p : G.Walk a b) (hlen : p.length = 1) :
     walkInterior p = ∅ := by
@@ -34,7 +34,7 @@ of `K₄`.  The four branch vertices are the theta endpoints and the two ear
 endpoints.  The six routes are the direct arm, the two halves of each crossed
 arm, and the ear.
 -/
-theorem hasTopologicalModel_k4_of_cross_arm_ear
+lemma hasTopologicalModel_k4_of_cross_arm_ear
     {V : Type u} [Fintype V] {G : SimpleGraph V}
     (T : ThetaModel G)
     (i j k : Fin 3)

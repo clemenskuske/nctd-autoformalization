@@ -11,7 +11,7 @@ universe u
 
 set_option maxHeartbeats 2000000
 
-private theorem snd_mem_walkInterior_of_two_le
+private lemma snd_mem_walkInterior_of_two_le
     {V : Type u} {G : SimpleGraph V}
     {a b : V} (p : G.Walk a b) (hp : p.IsPath)
     (hlen : 2 ≤ p.length) :
@@ -26,7 +26,7 @@ private theorem snd_mem_walkInterior_of_two_le
       (hp.getVert_eq_end_iff (i := 1) (by omega)).mp heq
     omega
 
-private theorem walkInterior_tail_subset
+private lemma walkInterior_tail_subset
     {V : Type u} {G : SimpleGraph V}
     {a b : V} (p : G.Walk a b) (hp : p.IsPath)
     (hlen : 1 ≤ p.length) :
@@ -52,7 +52,7 @@ private theorem walkInterior_tail_subset
     apply ha_not_tail
     exact hxa ▸ hx.1
 
-private theorem walkInterior_toWalk_eq_empty
+private lemma walkInterior_toWalk_eq_empty
     {V : Type u} {G : SimpleGraph V} {a b : V} (h : G.Adj a b) :
     walkInterior h.toWalk = ∅ := by
   ext z
@@ -65,7 +65,7 @@ namespace ThetaModel
 
 variable {V : Type u} [Fintype V] {G : SimpleGraph V}
 
-private theorem route_length_pos (T : ThetaModel G) (i : Fin 3) :
+private lemma route_length_pos (T : ThetaModel G) (i : Fin 3) :
     0 < (T.route i).length := by
   by_contra h
   have hz : (T.route i).length = 0 := by omega
@@ -113,7 +113,7 @@ noncomputable def k23Branch (T : ThetaModel G)
           exact Set.disjoint_left.mp (T.interiors_disjoint i j hij)
             (hsnd i) (hxy ▸ hsnd j)
 
-theorem hasTopologicalModel_k23_of_two_le
+lemma hasTopologicalModel_k23_of_two_le
     (T : ThetaModel G)
     (hlen : ∀ i, 2 ≤ (T.route i).length) :
     HasTopologicalModel
@@ -302,7 +302,7 @@ theorem hasTopologicalModel_k23_of_two_le
                 | inr k => simp at hcd
         | inr j => simp at hab
 
-theorem exists_length_one_of_no_k23
+lemma exists_length_one_of_no_k23
     (T : ThetaModel G)
     (hno :
       ¬ HasTopologicalModel
@@ -319,7 +319,7 @@ theorem exists_length_one_of_no_k23
 
 end ThetaModel
 
-theorem exists_three_distinct_neighbors
+lemma exists_three_distinct_neighbors
     {V : Type u} [Fintype V] (G : SimpleGraph V)
     [DecidableRel G.Adj] (v : V)
     (hdegree : 3 ≤ G.degree v) :
@@ -334,7 +334,7 @@ theorem exists_three_distinct_neighbors
   exact ⟨a, b, c, by simpa using ha, by simpa using hb, by simpa using hc,
     hab, hac, hbc⟩
 
-theorem exists_path_avoiding_vertex
+lemma exists_path_avoiding_vertex
     {V : Type u} [Fintype V] (G : SimpleGraph V)
     (htwo : IsTwoConnected G)
     {a b deleted : V} (ha : a ≠ deleted) (hb : b ≠ deleted) :
@@ -358,7 +358,7 @@ theorem exists_path_avoiding_vertex
         Subtype.val_injective q.prop
     · simp [p, inclusion]
 
-theorem exists_initial_path_to_set
+lemma exists_initial_path_to_set
     {V : Type u} {G : SimpleGraph V} (S : Set V)
     {a b : V} (q : G.Walk a b) (hq : q.IsPath) (hb : b ∈ S) :
     ∃ t : V, t ∈ S ∧
@@ -399,7 +399,7 @@ theorem exists_initial_path_to_set
           simp only [SimpleGraph.Walk.support_cons, List.mem_cons] at hx ⊢
           exact hx.imp_right (hrsub x)
 
-private theorem walkInterior_cons_subset_tail
+private lemma walkInterior_cons_subset_tail
     {V : Type u} {G : SimpleGraph V}
     {a b c x : V} (h : G.Adj a b) (p : G.Walk b c)
     (hx : x ∈ walkInterior (.cons h p)) :
@@ -408,7 +408,7 @@ private theorem walkInterior_cons_subset_tail
   simp only [SimpleGraph.Walk.support_cons, List.mem_cons] at hxsupport
   exact hxsupport.resolve_left hxne
 
-private theorem mem_support_takeUntil_and_dropUntil
+private lemma mem_support_takeUntil_and_dropUntil
     {V : Type u} {G : SimpleGraph V} [DecidableEq V]
     {a b t x : V} (p : G.Walk a b) (hp : p.IsPath)
     (ht : t ∈ p.support)
@@ -421,7 +421,7 @@ private theorem mem_support_takeUntil_and_dropUntil
   exact hpath.ne_of_mem_support_of_append hxt
     hxleft hxright rfl
 
-theorem exists_theta_of_degree_three
+lemma exists_theta_of_degree_three
     {V : Type u} [Fintype V] (G : SimpleGraph V)
     [DecidableRel G.Adj]
     (htwo : IsTwoConnected G) (v : V)

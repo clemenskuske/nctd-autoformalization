@@ -17,7 +17,7 @@ receives an outside witness.  When both dominators are active and distinct,
 one outside witness is chosen from their symmetric difference, allowing the
 pair to be separated from whichever side supplies that witness.
 -/
-theorem exists_two_dominator_assignment {V : Type u} [Fintype V]
+lemma exists_two_dominator_assignment {V : Type u} [Fintype V]
     (G : SimpleGraph V) (_hplanar : IsPlanar G)
     (v w₁ w₂ : V)
     (hdegree : (G.neighborSet v).ncard = 4)

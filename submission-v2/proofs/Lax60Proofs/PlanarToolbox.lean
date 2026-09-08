@@ -12,7 +12,7 @@ def liftInducedWalk {V : Type u} {G : SimpleGraph V} {s : Set V}
     G.Walk a.1 b.1 :=
   p.map (SimpleGraph.Embedding.induce s).toHom
 
-theorem walkInterior_liftInducedWalk {V : Type u} {G : SimpleGraph V}
+lemma walkInterior_liftInducedWalk {V : Type u} {G : SimpleGraph V}
     {s : Set V} {a b : s} (p : (G.induce s).Walk a b) :
     walkInterior (liftInducedWalk p) =
       Subtype.val '' walkInterior p := by
@@ -35,7 +35,7 @@ theorem walkInterior_liftInducedWalk {V : Type u} {G : SimpleGraph V}
     · exact fun h => hya (Subtype.ext h)
     · exact fun h => hyb (Subtype.ext h)
 
-theorem walkInterior_toWalk_eq_empty {V : Type u} {G : SimpleGraph V}
+lemma walkInterior_toWalk_eq_empty {V : Type u} {G : SimpleGraph V}
     {a b : V} (h : G.Adj a b) :
     walkInterior h.toWalk = ∅ := by
   ext x
@@ -98,7 +98,7 @@ def coneCompleteRoute {W : Type u} {V : Type v} {G : SimpleGraph V}
       | some b =>
           exact liftInducedWalk (M.route (by simpa using h))
 
-theorem coneCompleteRoute_isPath {W : Type u} {V : Type v}
+lemma coneCompleteRoute_isPath {W : Type u} {V : Type v}
     {G : SimpleGraph V} (center : V)
     (M : TopologicalModel (⊤ : SimpleGraph W)
       (G.induce (G.neighborSet center)))
@@ -116,7 +116,7 @@ theorem coneCompleteRoute_isPath {W : Type u} {V : Type v}
           apply SimpleGraph.Walk.map_isPath_of_injective Subtype.val_injective
           exact M.route_isPath (by simpa using h)
 
-theorem coneCompleteRoute_branch_avoids {W : Type u} {V : Type v}
+lemma coneCompleteRoute_branch_avoids {W : Type u} {V : Type v}
     {G : SimpleGraph V} (center : V)
     (M : TopologicalModel (⊤ : SimpleGraph W)
       (G.induce (G.neighborSet center)))
@@ -153,7 +153,7 @@ theorem coneCompleteRoute_branch_avoids {W : Type u} {V : Type v}
               subst y
               exact M.branch_avoids_interiors (by simpa using h) z hy
 
-theorem coneCompleteRoute_interiors_disjoint {W : Type u} {V : Type v}
+lemma coneCompleteRoute_interiors_disjoint {W : Type u} {V : Type v}
     {G : SimpleGraph V} (center : V)
     (M : TopologicalModel (⊤ : SimpleGraph W)
       (G.induce (G.neighborSet center)))
@@ -251,7 +251,7 @@ def coneRoute {W : Type u} {V : Type v} {H : SimpleGraph W}
       | none => exact (M.branch a).property.symm.toWalk
       | some b => exact liftInducedWalk (M.route h)
 
-theorem coneRoute_isPath {W : Type u} {V : Type v}
+lemma coneRoute_isPath {W : Type u} {V : Type v}
     {H : SimpleGraph W} {G : SimpleGraph V} (center : V)
     (M : TopologicalModel H (G.induce (G.neighborSet center)))
     {a b : Option W} (h : (coneGraph H).Adj a b) :
@@ -268,7 +268,7 @@ theorem coneRoute_isPath {W : Type u} {V : Type v}
           apply SimpleGraph.Walk.map_isPath_of_injective Subtype.val_injective
           exact M.route_isPath h
 
-theorem coneRoute_branch_avoids {W : Type u} {V : Type v}
+lemma coneRoute_branch_avoids {W : Type u} {V : Type v}
     {H : SimpleGraph W} {G : SimpleGraph V} (center : V)
     (M : TopologicalModel H (G.induce (G.neighborSet center)))
     {a b : Option W} (h : (coneGraph H).Adj a b) (z : Option W) :
@@ -303,7 +303,7 @@ theorem coneRoute_branch_avoids {W : Type u} {V : Type v}
               subst y
               exact M.branch_avoids_interiors h z hy
 
-theorem coneRoute_interiors_disjoint {W : Type u} {V : Type v}
+lemma coneRoute_interiors_disjoint {W : Type u} {V : Type v}
     {H : SimpleGraph W} {G : SimpleGraph V} (center : V)
     (M : TopologicalModel H (G.induce (G.neighborSet center)))
     {a b c d : Option W}
@@ -394,7 +394,7 @@ topological `K₄` becomes a topological `K₅`; a topological `K₂,₃` become
 topological `K₃,₃`.  Lifted old routes retain their disjoint interiors, and
 all newly added routes are single edges with empty interior.
 -/
-theorem neighbor_layer_outerplanar {V : Type u} {G : SimpleGraph V}
+lemma neighbor_layer_outerplanar {V : Type u} {G : SimpleGraph V}
     (hplanar : IsPlanar G) (center : V) :
     IsOuterplanar (G.induce (G.neighborSet center)) := by
   unfold IsPlanar at hplanar

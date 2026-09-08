@@ -13,7 +13,7 @@ universe u v
 
 set_option maxHeartbeats 2000000
 
-private theorem walkInterior_toWalk_eq_empty
+private lemma walkInterior_toWalk_eq_empty
     {V : Type u} {G : SimpleGraph V} {a b : V} (h : G.Adj a b) :
     walkInterior h.toWalk = ∅ := by
   ext x
@@ -36,7 +36,7 @@ private def directTopologicalModel
     rw [walkInterior_toWalk_eq_empty, walkInterior_toWalk_eq_empty]
     simp
 
-private theorem false_of_k5_configuration
+private lemma false_of_k5_configuration
     {V : Type u} {G : SimpleGraph V} (hplanar : IsPlanar G)
     (f : Fin 5 → V) (hf : Function.Injective f)
     (hadj : ∀ i j : Fin 5, i ≠ j → G.Adj (f i) (f j)) :
@@ -49,7 +49,7 @@ private theorem false_of_k5_configuration
         exact hadj i j (by simpa using hij) }
   exact ⟨directTopologicalModel hom hf⟩
 
-private theorem false_of_k33_configuration
+private lemma false_of_k33_configuration
     {V : Type u} {G : SimpleGraph V} (hplanar : IsPlanar G)
     (f : (Fin 3 ⊕ Fin 3) → V) (hf : Function.Injective f)
     (hadj : ∀ i j : Fin 3, G.Adj (f (Sum.inl i)) (f (Sum.inr j))) :
@@ -73,7 +73,7 @@ non-dominating neighbors contain both labels, since three would form a
 direct `K₃,₃`; add one missing neighbor label for each exception and pad the
 result inside the neighborhood to cardinality four.
 -/
-theorem exists_center_set {V : Type u} [Fintype V]
+lemma exists_center_set {V : Type u} [Fintype V]
     (G : SimpleGraph V) (hplanar : IsPlanar G)
     (v : V) (hdegree : 4 ≤ (G.neighborSet v).ncard) :
     ∃ W : Finset V,

@@ -896,7 +896,7 @@ An explicit positive width-two map proves both upper bounds, while four
 singleton symmetric differences and four cross-pair constraints rule out
 every ordinary width-one no-clash map.
 -/
-theorem outerplanar_bound_is_sharp :
+lemma outerplanar_bound_is_sharp :
     IsOuterplanar sharpOuterplanarGraph ∧
     nctd sharpOuterplanarGraph 1 = 2 ∧
     positiveNCTD sharpOuterplanarGraph 1 = 2 :=

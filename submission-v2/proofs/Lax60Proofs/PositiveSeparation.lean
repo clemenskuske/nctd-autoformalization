@@ -11,7 +11,7 @@ A separating label must belong to the teaching set whose ball contains it:
 the other two cases contradict positivity.  Conversely, either
 cross-containment failure supplies a separating witness.
 -/
-theorem positive_separation_iff {V : Type u} {G : SimpleGraph V}
+lemma positive_separation_iff {V : Type u} {G : SimpleGraph V}
     {T : TeachingMap V 1} (hT : IsPositive G 1 T) {v w : V} :
     Separates G 1 T v w ↔
       (∃ x ∈ T v, x ∉ closedBall G 1 w) ∨

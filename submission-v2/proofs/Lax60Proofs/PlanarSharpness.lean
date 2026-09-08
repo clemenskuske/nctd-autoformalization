@@ -200,7 +200,7 @@ upper bound.  Conversely, distinguishing the universal center ball from the
 four rim balls forces all four rim labels into the center's positive teaching
 set.
 -/
-theorem planar_bound_is_sharp :
+lemma planar_bound_is_sharp :
     IsPlanar sharpPlanarGraph ∧
     positiveNCTD sharpPlanarGraph 1 = 4 := by
   refine ⟨sharpPlanarGraph_isPlanar, ?_⟩

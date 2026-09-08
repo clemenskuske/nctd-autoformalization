@@ -37,7 +37,7 @@ with the center and those neighbors, form a direct `K₃,₃`.  Uniqueness then
 turns failure of an external certificate into the contradiction that the
 outside vertex belongs to the enlarged batch.
 -/
-theorem outside_three_set_gadget {V : Type u} [Fintype V] [DecidableEq V]
+lemma outside_three_set_gadget {V : Type u} [Fintype V] [DecidableEq V]
     (G : SimpleGraph V) (hplanar : IsPlanar G)
     (center : V) (Y : Finset V)
     (hcard : Y.card = 3)

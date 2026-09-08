@@ -14,7 +14,7 @@ ambient vertex type.  Labels and radius-one balls transport across the
 component inclusion.  Vertices in different components are separated by any
 label in the nonempty teaching set on the first component.
 -/
-theorem combine_components {V : Type u} [Fintype V]
+lemma combine_components {V : Type u} [Fintype V]
     (G : SimpleGraph V) (d : ℕ)
     (hcomponents :
       ∀ C : G.ConnectedComponent,

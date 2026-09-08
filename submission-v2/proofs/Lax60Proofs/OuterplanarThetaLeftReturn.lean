@@ -8,7 +8,7 @@ open Lax60ThetaDirect
 
 universe u
 
-theorem snd_mem_walkInterior_of_two_le
+lemma snd_mem_walkInterior_of_two_le
     {V : Type u} {G : SimpleGraph V}
     {a b : V} (p : G.Walk a b) (hp : p.IsPath)
     (hlen : 2 ≤ p.length) :
@@ -23,7 +23,7 @@ theorem snd_mem_walkInterior_of_two_le
       (hp.getVert_eq_end_iff (i := 1) (by omega)).mp heq
     omega
 
-theorem length_takeUntil_snd_eq_one
+lemma length_takeUntil_snd_eq_one
     {V : Type u} {G : SimpleGraph V} [DecidableEq V]
     {a b : V} (p : G.Walk a b)
     (hsnd : p.snd ∈ p.support) (hsnd_ne : p.snd ≠ a) :
@@ -34,7 +34,7 @@ theorem length_takeUntil_snd_eq_one
       simp [SimpleGraph.Walk.snd_cons,
         SimpleGraph.Walk.takeUntil, hac.ne]
 
-theorem eq_start_or_eq_end_of_mem_support_of_length_one
+lemma eq_start_or_eq_end_of_mem_support_of_length_one
     {V : Type u} {G : SimpleGraph V}
     {a b z : V} (p : G.Walk a b)
     (hlen : p.length = 1) (hz : z ∈ p.support) :
@@ -46,7 +46,7 @@ theorem eq_start_or_eq_end_of_mem_support_of_length_one
       | nil => simpa using hz
       | cons h r => simp at hlen
 
-theorem support_subset_of_interior_subset
+lemma support_subset_of_interior_subset
     {V : Type u} {G : SimpleGraph V}
     {a b : V} (p : G.Walk a b) (S : Set V)
     (ha : a ∈ S) (hb : b ∈ S)
@@ -59,7 +59,7 @@ theorem support_subset_of_interior_subset
   · simpa [hyb] using hb
   exact hint ⟨hy, hya, hyb⟩
 
-theorem walkInterior_copy
+lemma walkInterior_copy
     {V : Type u} {G : SimpleGraph V}
     {a b a' b' : V} (p : G.Walk a b)
     (ha : a = a') (hb : b = b') :
@@ -68,7 +68,7 @@ theorem walkInterior_copy
   subst b'
   rfl
 
-theorem two_le_length_of_exists_interior
+lemma two_le_length_of_exists_interior
     {V : Type u} {G : SimpleGraph V}
     {a b : V} (p : G.Walk a b)
     (h : ∃ y, y ∈ walkInterior p) :
@@ -86,7 +86,7 @@ theorem two_le_length_of_exists_interior
 
 /-- One-shot handler for an off-theta first-return ear whose stop is the
 old left endpoint.  The omitted old arm `d` is direct. -/
-theorem false_of_rank_maximal_left_return_ear
+lemma false_of_rank_maximal_left_return_ear
     {V : Type u} [Fintype V] {G : SimpleGraph V} [DecidableEq V]
     (T : ThetaModel G)
     (hmax : ∀ T' : ThetaModel G, T'.rank ≤ T.rank)

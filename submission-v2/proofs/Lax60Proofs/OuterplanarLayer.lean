@@ -13,7 +13,7 @@ universe u v
 
 set_option maxHeartbeats 2000000
 
-private theorem walkInterior_toWalk_eq_empty
+private lemma walkInterior_toWalk_eq_empty
     {V : Type u} {G : SimpleGraph V} {a b : V} (h : G.Adj a b) :
     walkInterior h.toWalk = ∅ := by
   ext x
@@ -36,7 +36,7 @@ private def directTopologicalModel
     rw [walkInterior_toWalk_eq_empty, walkInterior_toWalk_eq_empty]
     simp
 
-private theorem false_of_k4_configuration
+private lemma false_of_k4_configuration
     {V : Type u} {G : SimpleGraph V} (houter : IsOuterplanar G)
     (f : Fin 4 → V) (hf : Function.Injective f)
     (hadj : ∀ i j : Fin 4, i ≠ j → G.Adj (f i) (f j)) :

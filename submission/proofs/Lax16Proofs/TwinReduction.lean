@@ -11,7 +11,7 @@ For a pair involving the target twin, apply the original no-clash condition
 to the corresponding pair involving the source twin.  Equality of their
 closed balls transfers both the distinctness hypothesis and the witness.
 -/
-theorem copy_twin_preserves {V : Type u} {G : SimpleGraph V} {d : ℕ}
+lemma copy_twin_preserves {V : Type u} {G : SimpleGraph V} {d : ℕ}
     {T : TeachingMap V 1} {source target : V}
     (htwins : closedBall G 1 source = closedBall G 1 target)
     (hpositive : IsPositive G 1 T)

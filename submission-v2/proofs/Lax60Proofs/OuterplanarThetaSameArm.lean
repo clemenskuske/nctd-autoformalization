@@ -11,7 +11,7 @@ universe u
 set_option maxHeartbeats 2000000
 
 /-- Every noninitial vertex of a path occurs after its second vertex. -/
-theorem mem_dropUntil_snd_of_mem_support
+lemma mem_dropUntil_snd_of_mem_support
     {V : Type u} {G : SimpleGraph V} [DecidableEq V]
     {a b z : V} (p : G.Walk a b)
     (hp : p.IsPath)
@@ -34,7 +34,7 @@ theorem mem_dropUntil_snd_of_mem_support
           exact hzq
 
 /-- A one-edge walk has no support away from its endpoints. -/
-theorem eq_start_or_eq_end_of_mem_support_of_length_one
+lemma eq_start_or_eq_end_of_mem_support_of_length_one
     {V : Type u} {G : SimpleGraph V}
     {a b z : V} (p : G.Walk a b)
     (hlen : p.length = 1) (hz : z ∈ p.support) :
@@ -48,7 +48,7 @@ theorem eq_start_or_eq_end_of_mem_support_of_length_one
       | cons h r =>
           simp at hlen
 
-private theorem snd_dropUntil_snd_eq_getVert_two
+private lemma snd_dropUntil_snd_eq_getVert_two
     {V : Type u} {G : SimpleGraph V} [DecidableEq V]
     {a b : V} (p : G.Walk a b)
     (hsnd : p.snd ∈ p.support) :
@@ -63,7 +63,7 @@ private theorem snd_dropUntil_snd_eq_getVert_two
           simp [SimpleGraph.Walk.dropUntil, hac.ne]
           exact SimpleGraph.Walk.snd_cons r h
 
-private theorem length_takeUntil_snd_eq_one
+private lemma length_takeUntil_snd_eq_one
     {V : Type u} {G : SimpleGraph V} [DecidableEq V]
     {a b : V} (p : G.Walk a b)
     (hsnd : p.snd ∈ p.support)
@@ -75,7 +75,7 @@ private theorem length_takeUntil_snd_eq_one
       simp [SimpleGraph.Walk.snd_cons,
         SimpleGraph.Walk.takeUntil, hac.ne]
 
-private theorem snd_mem_interior_of_exists_interior
+private lemma snd_mem_interior_of_exists_interior
     {V : Type u} {G : SimpleGraph V}
     {a b : V} (p : G.Walk a b) (hp : p.IsPath)
     (h : ∃ y, y ∈ walkInterior p) :
@@ -102,7 +102,7 @@ private theorem snd_mem_interior_of_exists_interior
       (hp.getVert_eq_end_iff (i := 1) (by omega)).mp heq
     omega
 
-private theorem two_le_length_of_snd_mem_interior
+private lemma two_le_length_of_snd_mem_interior
     {V : Type u} {G : SimpleGraph V}
     {a b : V} (p : G.Walk a b)
     (h : p.snd ∈ walkInterior p) :
@@ -116,7 +116,7 @@ private theorem two_le_length_of_snd_mem_interior
       | nil => exact h.2.2 rfl
       | cons hq r => simp at hle
 
-private theorem snd_eq_end_or_mem_interior
+private lemma snd_eq_end_or_mem_interior
     {V : Type u} {G : SimpleGraph V}
     {a b : V} (p : G.Walk a b) (hp : p.IsPath)
     (hab : a ≠ b) :
@@ -140,7 +140,7 @@ private theorem snd_eq_end_or_mem_interior
         (hp.getVert_eq_end_iff (i := 1) (by omega)).mp heq
       omega
 
-private theorem support_subset_of_interior_subset
+private lemma support_subset_of_interior_subset
     {V : Type u} {G : SimpleGraph V}
     {a b : V} (p : G.Walk a b) (S : Set V)
     (ha : a ∈ S) (hb : b ∈ S)
@@ -153,7 +153,7 @@ private theorem support_subset_of_interior_subset
   · simpa [hyb] using hb
   exact hint ⟨hy, hya, hyb⟩
 
-private theorem walkInterior_copy
+private lemma walkInterior_copy
     {V : Type u} {G : SimpleGraph V}
     {a b a' b' : V} (p : G.Walk a b)
     (ha : a = a') (hb : b = b') :
@@ -167,7 +167,7 @@ Specialized same-arm rotation.  The omitted third old arm is direct, so
 the rotated theta covers the whole old theta.  Ordering `i` below `j`
 makes the complementary detour strictly longer than the old span.
 -/
-theorem false_of_rank_maximal_same_arm_ear
+lemma false_of_rank_maximal_same_arm_ear
     {V : Type u} [Fintype V] {G : SimpleGraph V} [DecidableEq V]
     (T : ThetaModel G)
     (hmax : ∀ T' : ThetaModel G, T'.rank ≤ T.rank)

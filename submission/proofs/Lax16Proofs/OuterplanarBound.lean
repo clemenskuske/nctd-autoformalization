@@ -56,7 +56,7 @@ private def liftInducedModel {W : Type u} {V : Type v}
       Set.disjoint_image_of_injective Subtype.val_injective
         (M.route_interiors_disjoint hab hcd hne)
 
-private theorem outerplanar_induce {V : Type u} {G : SimpleGraph V}
+private lemma outerplanar_induce {V : Type u} {G : SimpleGraph V}
     (houter : IsOuterplanar G) (s : Set V) :
     IsOuterplanar (G.induce s) := by
   constructor
@@ -65,7 +65,7 @@ private theorem outerplanar_induce {V : Type u} {G : SimpleGraph V}
   · rintro ⟨M⟩
     exact houter.2 ⟨liftInducedModel M⟩
 
-private theorem mem_closedBall_one_iff {V : Type u} {G : SimpleGraph V}
+private lemma mem_closedBall_one_iff {V : Type u} {G : SimpleGraph V}
     {a b : V} :
     b ∈ closedBall G 1 a ↔ b = a ∨ G.Adj a b := by
   constructor
@@ -78,7 +78,7 @@ private theorem mem_closedBall_one_iff {V : Type u} {G : SimpleGraph V}
     · exact ⟨SimpleGraph.Walk.nil, by simp⟩
     · exact ⟨hab.toWalk, by simp⟩
 
-private theorem closedBall_one_symm {V : Type u} {G : SimpleGraph V}
+private lemma closedBall_one_symm {V : Type u} {G : SimpleGraph V}
     {a b : V} :
     b ∈ closedBall G 1 a ↔ a ∈ closedBall G 1 b := by
   rw [mem_closedBall_one_iff, mem_closedBall_one_iff]
@@ -107,7 +107,7 @@ private def HasExactTwoMap {V : Type u} (G : SimpleGraph V) : Prop :=
     IsNoClash G 1 T ∧
     ∀ x : V, (T x).card = 2
 
-private theorem connected_outerplanar_exact_two
+private lemma connected_outerplanar_exact_two
     {V : Type u} [Fintype V]
     (G : SimpleGraph V) (houter : IsOuterplanar G)
     (hconn : G.Connected) (hcard : 2 ≤ Fintype.card V) :

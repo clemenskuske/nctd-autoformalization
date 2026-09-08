@@ -21,7 +21,7 @@ universe u v
 
 set_option maxHeartbeats 1000000
 
-private theorem walkInterior_toWalk_eq_empty
+private lemma walkInterior_toWalk_eq_empty
     {V : Type u} {G : SimpleGraph V} {a b : V} (h : G.Adj a b) :
     walkInterior h.toWalk = ∅ := by
   ext z
@@ -44,7 +44,7 @@ private def directTopologicalModel
     rw [walkInterior_toWalk_eq_empty, walkInterior_toWalk_eq_empty]
     simp
 
-private theorem false_of_k23_configuration
+private lemma false_of_k23_configuration
     {V : Type u} {G : SimpleGraph V} (houter : IsOuterplanar G)
     (a b x c d : V)
     (hab : a ≠ b)
@@ -71,7 +71,7 @@ private theorem false_of_k23_configuration
             SimpleGraph.adj_comm] }
   exact ⟨directTopologicalModel hom hf⟩
 
-private theorem walk_end_mem_of_closed {V : Type u} {G : SimpleGraph V}
+private lemma walk_end_mem_of_closed {V : Type u} {G : SimpleGraph V}
     (S : Finset V) {a b : V} (p : G.Walk a b)
     (ha : a ∈ S)
     (hclosed : ∀ ⦃u v : V⦄, u ∈ S → G.Adj u v → v ∈ S) :
@@ -87,7 +87,7 @@ private noncomputable def suppressAt {V : Type u} [Fintype V]
     SimpleGraph {z : V // z ≠ x} :=
   G.induce {z : V | z ≠ x} ⊔ SimpleGraph.edge a b
 
-private theorem degree_two_neighbors {V : Type u} [Fintype V]
+private lemma degree_two_neighbors {V : Type u} [Fintype V]
     (G : SimpleGraph V) [DecidableRel G.Adj]
     {x : V} (hx : G.degree x = 2) :
     ∃ a b : V,
@@ -113,7 +113,7 @@ private theorem degree_two_neighbors {V : Type u} [Fintype V]
     rw [hneighbors] at hz
     simpa [eq_comm] using hz
 
-private theorem suppressAt_adj_iff {V : Type u} [Fintype V]
+private lemma suppressAt_adj_iff {V : Type u} [Fintype V]
     (G : SimpleGraph V) (x : V)
     (a b p q : {z : V // z ≠ x}) (hab : a ≠ b) :
     (suppressAt G x a b).Adj p q ↔
@@ -179,7 +179,7 @@ private noncomputable def liftWalk {V : Type u} [Fintype V]
       (liftStep G x a b hab hxa hxb hpq).append
         (liftWalk G x a b hab hxa hxb w)
 
-private theorem liftStep_support {V : Type u} [Fintype V]
+private lemma liftStep_support {V : Type u} [Fintype V]
     (G : SimpleGraph V) (x : V)
     (a b : {z : V // z ≠ x}) (hab : a ≠ b)
     (hxa : G.Adj x a.1) (hxb : G.Adj x b.1)
@@ -214,7 +214,7 @@ private theorem liftStep_support {V : Type u} [Fintype V]
       · exact (List.not_mem_nil hy).elim
     · simp_all
 
-private theorem liftStep_x_implies_special {V : Type u} [Fintype V]
+private lemma liftStep_x_implies_special {V : Type u} [Fintype V]
     (G : SimpleGraph V) (x : V)
     (a b : {z : V // z ≠ x}) (hab : a ≠ b)
     (hxa : G.Adj x a.1) (hxb : G.Adj x b.1)
@@ -237,7 +237,7 @@ private theorem liftStep_x_implies_special {V : Type u} [Fintype V]
         (fun h => p.property h.symm)
         (fun h => q.property h.symm)
 
-private theorem liftWalk_support {V : Type u} [Fintype V]
+private lemma liftWalk_support {V : Type u} [Fintype V]
     (G : SimpleGraph V) (x : V)
     (a b : {z : V // z ≠ x}) (hab : a ≠ b)
     (hxa : G.Adj x a.1) (hxb : G.Adj x b.1)
@@ -264,7 +264,7 @@ private theorem liftWalk_support {V : Type u} [Fintype V]
         · exact Or.inl rfl
         · exact Or.inr ⟨z, by simp [hzw], rfl⟩
 
-private theorem liftWalk_x_implies_edge {V : Type u} [Fintype V]
+private lemma liftWalk_x_implies_edge {V : Type u} [Fintype V]
     (G : SimpleGraph V) (x : V)
     (a b : {z : V // z ≠ x}) (hab : a ≠ b)
     (hxa : G.Adj x a.1) (hxb : G.Adj x b.1)
@@ -287,7 +287,7 @@ private theorem liftWalk_x_implies_edge {V : Type u} [Fintype V]
       · simp only [SimpleGraph.Walk.edges_cons, List.mem_cons]
         exact Or.inr (ih hx)
 
-private theorem eq_endpoint_of_support_not_interior
+private lemma eq_endpoint_of_support_not_interior
     {V : Type u} {G : SimpleGraph V} {p q y : V}
     (w : G.Walk p q) (hy : y ∈ w.support)
     (hnot : y ∉ walkInterior w) :
@@ -296,7 +296,7 @@ private theorem eq_endpoint_of_support_not_interior
   push Not at h
   exact hnot ⟨hy, h.1, h.2⟩
 
-private theorem route_unique_of_common_edge
+private lemma route_unique_of_common_edge
     {W : Type u} {V : Type v} {K : SimpleGraph W} {G : SimpleGraph V}
     (M : TopologicalModel K G)
     {i j k l : W} (hij : K.Adj i j) (hkl : K.Adj k l)
@@ -464,7 +464,7 @@ private noncomputable def liftTopologicalModel
               (M.route_interiors_disjoint hij hkl hne)
               hzint_ij hzint_kl
 
-private theorem hasTopologicalModel_suppressAt_imp
+private lemma hasTopologicalModel_suppressAt_imp
     {W : Type u} {V : Type v} [Fintype V]
     (K : SimpleGraph W) (G : SimpleGraph V) (x : V)
     (a b : {z : V // z ≠ x}) (hab : a ≠ b)
@@ -475,7 +475,7 @@ private theorem hasTopologicalModel_suppressAt_imp
   rintro ⟨M⟩
   exact ⟨liftTopologicalModel G x a b hab hxa hxb M⟩
 
-private theorem suppressAt_outerplanar
+private lemma suppressAt_outerplanar
     {V : Type u} [Fintype V]
     (G : SimpleGraph V) (houter : IsOuterplanar G) (x : V)
     (a b : {z : V // z ≠ x}) (hab : a ≠ b)
@@ -498,7 +498,7 @@ reference.  The final proof uses the generic suppression/model-lifting
 helpers developed separately, which avoid this local recursive termination
 proof.
 
-private theorem exists_suppressed_walk {V : Type u} [Fintype V]
+private lemma exists_suppressed_walk {V : Type u} [Fintype V]
     (G : SimpleGraph V) (x a b : V)
     (hab : a ≠ b)
     (hxa : G.Adj x a) (hxb : G.Adj x b)
@@ -582,7 +582,7 @@ private theorem exists_suppressed_walk {V : Type u} [Fintype V]
       simp_all
   simpa [H, a', b'] using aux p hu hv
 
-private theorem suppressAt_twoConnected {V : Type u} [Fintype V]
+private lemma suppressAt_twoConnected {V : Type u} [Fintype V]
     (G : SimpleGraph V) (htwo : IsTwoConnected G)
     (hcard : 4 ≤ Nat.card V)
     (x a b : V)
@@ -654,7 +654,7 @@ private theorem suppressAt_twoConnected {V : Type u} [Fintype V]
     exact ⟨⟨z, hzy⟩⟩
 -/
 
-private theorem exists_suppressed_walk {V : Type u} [Fintype V]
+private lemma exists_suppressed_walk {V : Type u} [Fintype V]
     (G : SimpleGraph V) (x a b : V)
     (hab : a ≠ b)
     (hxa : G.Adj x a) (hxb : G.Adj x b)
@@ -754,7 +754,7 @@ private theorem exists_suppressed_walk {V : Type u} [Fintype V]
       simp_all
   simpa [H, a', b'] using aux w hp hq
 
-private theorem suppressAt_twoConnected {V : Type u} [Fintype V]
+private lemma suppressAt_twoConnected {V : Type u} [Fintype V]
     (G : SimpleGraph V) (htwo : IsTwoConnected G)
     (hcard : 4 ≤ Nat.card V)
     (x a b : V)
@@ -823,7 +823,7 @@ private theorem suppressAt_twoConnected {V : Type u} [Fintype V]
   · obtain ⟨z, hzy⟩ := exists_ne y
     exact ⟨⟨z, hzy⟩⟩
 
-private theorem twoConnected_connected {V : Type u} [Fintype V]
+private lemma twoConnected_connected {V : Type u} [Fintype V]
     (G : SimpleGraph V) (htwo : IsTwoConnected G) :
     G.Connected := by
   classical
@@ -859,7 +859,7 @@ private theorem twoConnected_connected {V : Type u} [Fintype V]
         exact hxy }
   exact hr.map inclusion
 
-private theorem two_le_closedBallFinset_card {V : Type u} [Fintype V]
+private lemma two_le_closedBallFinset_card {V : Type u} [Fintype V]
     (G : SimpleGraph V) (htwo : IsTwoConnected G) (v : V) :
     2 ≤ (closedBallFinset G 1 v).card := by
   classical
@@ -884,7 +884,7 @@ private theorem two_le_closedBallFinset_card {V : Type u} [Fintype V]
 Padding a positive no-clash map of width at most two to exact size two
 preserves positivity and no-clash.
 -/
-private theorem pad_width_two {V : Type u} [Fintype V]
+private lemma pad_width_two {V : Type u} [Fintype V]
     (G : SimpleGraph V) (htwo : IsTwoConnected G)
     (A : TeachingMap V 1)
     (hApositive : IsPositive G 1 A)
@@ -916,7 +916,7 @@ private theorem pad_width_two {V : Type u} [Fintype V]
     exact ⟨x, hxT.elim (fun hx => Or.inl (hAT v hx))
       (fun hx => Or.inr (hAT w hx)), hxwitness⟩
 
-private theorem closedBall_one_iff {V : Type u}
+private lemma closedBall_one_iff {V : Type u}
     (G : SimpleGraph V) (u v : V) :
     v ∈ closedBall G 1 u ↔ v = u ∨ G.Adj u v := by
   constructor
@@ -929,13 +929,13 @@ private theorem closedBall_one_iff {V : Type u}
     · exact ⟨SimpleGraph.Walk.nil, by simp⟩
     · exact ⟨huv.toWalk, by simp⟩
 
-private theorem separates_symm {V : Type u} {G : SimpleGraph V} {k : ℕ}
+private lemma separates_symm {V : Type u} {G : SimpleGraph V} {k : ℕ}
     {T : TeachingMap V k} {u v : V} :
     Separates G k T u v → Separates G k T v u := by
   rintro ⟨z, hz, hw⟩
   exact ⟨z, hz.symm, hw.symm⟩
 
-private theorem suppress_ball_transport_regular {V : Type u} [Fintype V]
+private lemma suppress_ball_transport_regular {V : Type u} [Fintype V]
     (G : SimpleGraph V) (x a b : V)
     (hab : a ≠ b)
     (hxa : G.Adj x a) (hxb : G.Adj x b)
@@ -968,7 +968,7 @@ private theorem suppress_ball_transport_regular {V : Type u} [Fintype V]
             intro heq
             exact hab (Subtype.ext_iff.mp heq))).2 (Or.inl hyz)
 
-private theorem x_not_mem_ball_regular {V : Type u}
+private lemma x_not_mem_ball_regular {V : Type u}
     (G : SimpleGraph V) (x a b y : V)
     (hx_neighbors : ∀ ⦃z : V⦄, G.Adj x z → z = a ∨ z = b)
     (hyx : y ≠ x) (hya : y ≠ a) (hyb : y ≠ b) :
@@ -980,7 +980,7 @@ private theorem x_not_mem_ball_regular {V : Type u}
     · exact hya h
     · exact hyb h
 
-private theorem exists_endpoint_repair {V : Type u} [Fintype V]
+private lemma exists_endpoint_repair {V : Type u} [Fintype V]
     (G : SimpleGraph V) (htwo : IsTwoConnected G)
     (hcard : 4 ≤ Nat.card V)
     (x a b : V) (hab : a ≠ b)
@@ -1056,7 +1056,7 @@ private theorem exists_endpoint_repair {V : Type u} [Fintype V]
   have ht_sub : t = a' := Subtype.ext ht_eq_a
   simpa [ht_sub] using ht_mem_q
 
-private theorem exists_endpoint_repairs {V : Type u} [Fintype V]
+private lemma exists_endpoint_repairs {V : Type u} [Fintype V]
     (G : SimpleGraph V) (houter : IsOuterplanar G)
     (htwo : IsTwoConnected G)
     (hcard : 5 ≤ Nat.card V)
@@ -1276,7 +1276,7 @@ private theorem exists_endpoint_repairs {V : Type u} [Fintype V]
     · exact False.elim (hz (by simp [hzx]))
     · exact False.elim (hz (by simp [hzb]))
 
-private theorem base_four {V : Type u} [Fintype V]
+private lemma base_four {V : Type u} [Fintype V]
     (G : SimpleGraph V) (htwo : IsTwoConnected G)
     (hcard : Nat.card V = 4)
     (x a b : V) (hab : a ≠ b)
@@ -1638,7 +1638,7 @@ private theorem base_four {V : Type u} [Fintype V]
       · subst z
         simp [hT_c, hcb.symm]
 
-private theorem base_three {V : Type u} [Fintype V]
+private lemma base_three {V : Type u} [Fintype V]
     (G : SimpleGraph V) (htwo : IsTwoConnected G)
     (hcard : Nat.card V = 3)
     (x a b : V) (hab : a ≠ b)
@@ -1693,7 +1693,7 @@ The exact-two extension across a suppressed degree-two vertex.  The edge
 between `a` and `b` may be newly added: only those two closed balls change in
 the suppressed graph, and their teaching sets are replaced.
 -/
-private theorem extend_across_degree_two {V : Type u} [Fintype V]
+private lemma extend_across_degree_two {V : Type u} [Fintype V]
     (G : SimpleGraph V) (x a b cₐ cᵦ : V)
     (hab : a ≠ b)
     (hxa : G.Adj x a) (hxb : G.Adj x b)
@@ -1907,7 +1907,7 @@ private theorem extend_across_degree_two {V : Type u} [Fintype V]
           simp [T_b, hcᵦ_ne_x, hcᵦ_ne_x.symm]
         · rw [T_regular y hyx hya hyb, Finset.card_map, hAcard]
 
-private theorem natCard_survivors {V : Type u} [Fintype V] (x : V) :
+private lemma natCard_survivors {V : Type u} [Fintype V] (x : V) :
     Nat.card {z : V // z ≠ x} = Nat.card V - 1 := by
   classical
   rw [Nat.card_eq_fintype_card, Nat.card_eq_fintype_card]
@@ -1919,7 +1919,7 @@ The complete induction, factored through the sole structural reduction
 interface.  The external graph theory supplies a degree-two vertex and the
 two preservation statements for its suppression.
 -/
-private theorem exists_two_label_assignment_of_reduction
+private lemma exists_two_label_assignment_of_reduction
     (reduce :
       ∀ {W : Type u} [Fintype W]
         (H : SimpleGraph W),
@@ -1992,7 +1992,7 @@ three and four cases are discharged before suppression; this is necessary
 because suppressing a three-vertex graph leaves only two vertices and hence
 cannot preserve `IsTwoConnected`.
 -/
-theorem exists_two_label_assignment_of_degree_two
+lemma exists_two_label_assignment_of_degree_two
     (exists_degree_two :
       ∀ {W : Type u} [Fintype W] (H : SimpleGraph W)
         [DecidableRel H.Adj],

@@ -16,7 +16,7 @@ degree four) two dominators.  The empty case is vacuous, the singleton case
 uses the unique-dominator construction when that vertex is active, and the
 two-element case uses the simultaneous degree-four construction.
 -/
-theorem exists_dominator_completion {V : Type u} [Fintype V]
+lemma exists_dominator_completion {V : Type u} [Fintype V]
     (G : SimpleGraph V) (hplanar : IsPlanar G)
     (v : V) (hdegree : 4 ≤ (G.neighborSet v).ncard) :
     ∃ T : TeachingMap V 1, CompletesActiveDominators G v T := by
