@@ -8,7 +8,13 @@ title: Some planar graph has positive NCTD at least four
 type: theorem
 ---
 Let `W` be the five-vertex wheel whose center is `0` and whose rim is the
-four-cycle `1-2-3-4-1`.  The graph is planar and its positive radius-one
+four-cycle `1-2-3-4-1`.
+
+![The wheel W: center 0 joined to the four-cycle 1-2-3-4-1.](https://raw.githubusercontent.com/clemenskuske/nctd-autoformalization/dc07f80a4cc903ff619213dfa9e97f50ac8449b8/figures/lax-60/sharp-planar-graph.svg)
+
+*The planar sharpness graph `W`.*
+
+The graph is planar and its positive radius-one
 no-clash teaching dimension is at least four: the center must use all four
 rim vertices to distinguish itself from the four dominated rim concepts.
 -/

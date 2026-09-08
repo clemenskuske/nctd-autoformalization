@@ -9,6 +9,11 @@ type: theorem
 ---
 Let `H` be the six-vertex graph formed from two triangles
 `0-1-2-0` and `3-4-5-3` together with the edges `0-3` and `1-4`.
+
+![The graph H: two triangles joined by the edges 0-3 and 1-4.](https://raw.githubusercontent.com/clemenskuske/nctd-autoformalization/dc07f80a4cc903ff619213dfa9e97f50ac8449b8/figures/lax-60/sharp-outerplanar-graph.svg)
+
+*The outerplanar sharpness graph `H`.*
+
 This graph is outerplanar and witnesses that the positive radius-one
 no-clash teaching dimension of outerplanar graphs cannot be below two.
 -/
