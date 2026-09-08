@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="300" viewBox="0 0 600 300" role="img" aria-labelledby="title desc">
+  <title id="title">The six-vertex outerplanar sharpness graph</title>
+  <desc id="desc">Two triangles on vertices zero, one, two and three, four, five, joined by the edges zero-three and one-four.</desc>
+  <rect x="1" y="1" width="598" height="298" rx="18" fill="#f7fafb" stroke="#d8e1e5" stroke-width="2"/>
+  <g fill="none" stroke="#40545d" stroke-width="4" stroke-linecap="round">
+    <path d="M195 70 L195 230 L85 150 Z"/>
+    <path d="M405 70 L405 230 L515 150 Z"/>
+    <path d="M195 70 L405 70"/>
+    <path d="M195 230 L405 230"/>
+  </g>
+  <g fill="#e5f3f5" stroke="#2a7f8f" stroke-width="4">
+    <circle cx="195" cy="70" r="24"/>
+    <circle cx="195" cy="230" r="24"/>
+    <circle cx="85" cy="150" r="24"/>
+    <circle cx="405" cy="70" r="24"/>
+    <circle cx="405" cy="230" r="24"/>
+    <circle cx="515" cy="150" r="24"/>
+  </g>
+  <g fill="#203038" font-family="ui-sans-serif, system-ui, sans-serif" font-size="24" font-weight="650" text-anchor="middle" dominant-baseline="central">
+    <text x="195" y="70">0</text>
+    <text x="195" y="230">1</text>
+    <text x="85" y="150">2</text>
+    <text x="405" y="70">3</text>
+    <text x="405" y="230">4</text>
+    <text x="515" y="150">5</text>
+  </g>
+</svg>
